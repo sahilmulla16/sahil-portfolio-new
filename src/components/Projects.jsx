@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSwipeable } from "react-swipeable";
 import { FaGithub, FaGlobe, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 // Import images
@@ -63,10 +64,13 @@ export default function Projects() {
   const intervalRef = useRef(null);
   const progressRef = useRef(null);
   const [hovered, setHovered] = useState(false);
-
-  const slideDuration = 3000; // 3 seconds
+  const [slideDuration, setSlideDuration] = useState(5000); // default 5s
 
   useEffect(() => {
+    // Detect mobile and set slower speed
+    if (window.innerWidth < 768) {
+      setSlideDuration(7000); // 7s for mobile
+    }
     startAutoSlide();
     return () => stopAutoSlide();
   }, []);
@@ -109,16 +113,24 @@ export default function Projects() {
     startAutoSlide();
   };
 
+  // Swipe handlers
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => nextSlide(),
+    onSwipedRight: () => prevSlide(),
+    preventScrollOnSwipe: true,
+    trackMouse: true,
+  });
+
   return (
     <section id="projects" className="py-20 text-white w-full">
-      <div className="text-center mb-12">
-        <h2 className="text-5xl font-bold">
+      <div className="text-center mb-10 px-4">
+        <h2 className="text-4xl sm:text-5xl font-bold">
           My{" "}
           <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">
             Projects
           </span>
         </h2>
-        <p className="text-gray-400 uppercase tracking-widest mt-2">
+        <p className="text-gray-400 uppercase tracking-widest mt-2 text-sm sm:text-base">
           Some of my best work
         </p>
       </div>
@@ -133,49 +145,52 @@ export default function Projects() {
           startAutoSlide();
           setHovered(false);
         }}
+        {...swipeHandlers}
       >
         <AnimatePresence mode="wait">
           <motion.div
             key={current}
-            initial={{ opacity: 0, x: 100 }}
+            initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
-            transition={{ duration: 0.5 }}
-            className="bg-[#1a1a1a] rounded-2xl overflow-hidden flex flex-col md:flex-row md:h-[550px]"
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+            className="bg-[#1a1a1a] rounded-2xl overflow-hidden flex flex-col md:flex-row md:h-[550px] shadow-lg"
           >
-            <div className="md:w-[60%] w-full overflow-hidden">
+            {/* Image */}
+            <div className="w-full md:w-[60%] overflow-hidden">
               <img
                 src={projects[current].img}
                 alt={projects[current].title}
-                className="w-full h-[350px] md:h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                className="w-full h-[220px] sm:h-[300px] md:h-full object-cover transform hover:scale-105 transition-transform duration-700 ease-out"
               />
             </div>
 
-            <div className="p-8 flex flex-col md:w-[40%]">
-              <h3 className="text-4xl font-semibold mb-4">
+            {/* Content */}
+            <div className="p-6 sm:p-8 flex flex-col md:w-[40%] text-center md:text-left">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-4">
                 {projects[current].title}
               </h3>
-              <p className="text-gray-400 mb-6 flex-1 text-lg">
+              <p className="text-gray-400 mb-6 text-sm sm:text-base flex-1">
                 {projects[current].description}
               </p>
 
-              <div className="flex flex-wrap gap-3 mb-6">
+              <div className="flex flex-wrap justify-center md:justify-start gap-2 sm:gap-3 mb-6">
                 {projects[current].tech.map((tech, i) => (
                   <span
                     key={i}
-                    className="bg-gray-700 text-sm px-4 py-1 rounded-full text-gray-200"
+                    className="bg-gray-700 text-xs sm:text-sm px-3 py-1 rounded-full text-gray-200"
                   >
                     {tech}
                   </span>
                 ))}
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-4 mt-auto">
                 <a
                   href={projects[current].source}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center justify-center gap-2 bg-black text-white px-6 py-3 rounded-lg hover:bg-primary transition-colors"
+                  className="flex items-center justify-center gap-2 bg-black text-white px-6 py-3 rounded-lg hover:bg-primary transition-all duration-300 w-full sm:w-auto"
                 >
                   <FaGithub /> Source
                 </a>
@@ -183,7 +198,7 @@ export default function Projects() {
                   href={projects[current].live}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center justify-center gap-2 bg-black text-white px-6 py-3 rounded-lg hover:bg-primary transition-colors"
+                  className="flex items-center justify-center gap-2 bg-black text-white px-6 py-3 rounded-lg hover:bg-primary transition-all duration-300 w-full sm:w-auto"
                 >
                   <FaGlobe /> Website
                 </a>
@@ -192,32 +207,30 @@ export default function Projects() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Left Arrow */}
+        {/* Arrows */}
         {hovered && (
-          <button
-            onClick={prevSlide}
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white p-3 rounded-full transition-colors"
-          >
-            <FaChevronLeft size={20} />
-          </button>
+          <>
+            <button
+              onClick={prevSlide}
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white p-2 sm:p-3 rounded-full transition-colors"
+            >
+              <FaChevronLeft size={16} className="sm:w-5 sm:h-5" />
+            </button>
+            <button
+              onClick={nextSlide}
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white p-2 sm:p-3 rounded-full transition-colors"
+            >
+              <FaChevronRight size={16} className="sm:w-5 sm:h-5" />
+            </button>
+          </>
         )}
 
-        {/* Right Arrow */}
-        {hovered && (
-          <button
-            onClick={nextSlide}
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white p-3 rounded-full transition-colors"
-          >
-            <FaChevronRight size={20} />
-          </button>
-        )}
-
-        {/* Dots with progress */}
-        <div className="flex justify-center gap-3 mt-6">
+        {/* Progress Dots */}
+        <div className="flex justify-center gap-2 sm:gap-3 mt-6">
           {projects.map((_, index) => (
             <div
               key={index}
-              className={`w-6 h-2 rounded-full overflow-hidden cursor-pointer ${
+              className={`w-4 sm:w-6 h-2 rounded-full overflow-hidden cursor-pointer ${
                 index === current ? "bg-gray-700" : "bg-gray-500"
               }`}
               onClick={() => handleIndicatorClick(index)}
