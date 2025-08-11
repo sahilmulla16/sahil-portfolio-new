@@ -5,7 +5,7 @@ import { FaGithub, FaGlobe, FaChevronLeft, FaChevronRight } from "react-icons/fa
 // Import images
 import jarvisImg from "../Pic/Jarvis home.png";
 import voiceAgentImg from "../Pic/Banner.png";
-import portfolioImg from "../Pic/Portfolio.png";
+import portfolioImg from "../Pic/portfolio new.png";
 import iphoneImg from "../Pic/iphone.png";
 import ems from "../Pic/EMS.png";
 
