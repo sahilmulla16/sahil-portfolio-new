@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaGithub, FaGlobe, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 // Import images
-import jarvisImg from "../Pic/jarvis.jpg";
+import jarvisImg from "../Pic/Jarvis home.png";
 import voiceAgentImg from "../Pic/Banner.png";
 import portfolioImg from "../Pic/Portfolio.png";
 import iphoneImg from "../Pic/iphone.png";
