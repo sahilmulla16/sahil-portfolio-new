@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global font and smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-black text-white font-sans;
+}
+
+/* Navbar active state */
+.nav-link {
+  @apply cursor-pointer text-gray-300 px-3 py-1 rounded-full transition-all duration-300;
+}
+
+.nav-link:hover {
+  @apply text-gray-400;
+}
+
+.nav-link.active {
+  @apply bg-white text-black;
+}
+
+/* Section padding */
+section {
+  @apply py-20 px-4;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold;
+}
+
+/* Custom scroll bar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
