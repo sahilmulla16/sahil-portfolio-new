@@ -1,6 +1,7 @@
 import React from "react";
 import { FaGithub, FaInstagram, FaEnvelope, FaLinkedin } from "react-icons/fa";
 import { SiFiverr } from "react-icons/si"; // Fiverr icon
+import profilepic from "../Pic/profile2.jpg"
 
 export default function About() {
   return (
@@ -89,7 +90,7 @@ export default function About() {
         {/* Image */}
         <div className="flex-1 flex justify-center">
           <img
-            src="src/Pic/profile2.jpg"
+            src={profilepic}
             alt="Sahil Mulla"
             className="w-72 h-72 object-cover rounded-full border-4 border-purple-500 shadow-lg"
           />
