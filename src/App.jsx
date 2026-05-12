@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import LoadingScreen from './components/LoadingScreen';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import SelectedWorks from './components/SelectedWorks';
-import Insights from './components/Insights';
+import ProfessionalExperience from './components/ProfessionalExperience';
 import CreativeEngineering from './components/CreativeEngineering';
 import Stats from './components/Stats';
 import Footer from './components/Footer';
@@ -28,7 +28,7 @@ export default function App() {
           <main>
             <Hero />
             <SelectedWorks />
-            <Insights />
+            <ProfessionalExperience />
             <CreativeEngineering />
             <Stats />
           </main>
