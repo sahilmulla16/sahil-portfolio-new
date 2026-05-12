@@ -10,18 +10,20 @@ gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
 const experiences = [
   {
-    date: "Jan 2025 – Feb 2025",
-    role: "Digital Experience Developer",
-    company: "FZ Creation Bags",
-    description: "Developed a full-fledged responsive e-commerce website, implementing product listings, carousels, and enquiry forms using Bootstrap and modern UI/UX practices.",
+    date: "NOV 2024 – DEC 2024",
+    role: "Freelance Developer",
+    company: "Apexxport Pvt. Ltd.",
+    description: "Received a Letter of Recommendation for outstanding contributions in front-end development, React, and UI/UX optimization. Improved responsiveness, usability, and overall user experience across modern web interfaces.",
+    skills: ["React", "UI/UX", "SEO", "Frontend"],
     side: "left",
-    top: "150px"
+    top: "120px"
   },
   {
-    date: "Jul 2022 – Sep 2022",
-    role: "IT Support & Technical Intern",
-    company: "A TO Z COMPUTERS",
-    description: "Diagnosed and resolved hardware issues, collaborated on component repairs and system assembly, and maintained detailed records of repairs and upgrades.",
+    date: "JUL 2022 – AUG 2022",
+    role: "Web Developer Intern",
+    company: "A to Z IT Solutions",
+    description: "Worked on real-time web development projects using HTML, CSS, and JavaScript. Built responsive interfaces and improved user engagement through optimized UI implementation and debugging workflows.",
+    skills: ["JavaScript", "Responsive Design", "Debugging", "Web Development"],
     side: "right",
     top: "450px"
   }
@@ -80,12 +82,12 @@ export default function ProfessionalExperience() {
         <div className="text-center mb-16 md:mb-24">
           <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-text-primary mb-4">Professional Experience</h2>
           <p className="text-muted text-base md:text-lg max-w-xl mx-auto px-4">
-            A journey of growth and learning.
+            A journey of growth, innovation, and real-world development.
           </p>
         </div>
 
         <div className="relative max-w-[800px] h-[800px] mx-auto">
-          {/* SVG Curved Path from Reference */}
+          {/* SVG Curved Path */}
           <svg className="absolute left-1/2 -translate-x-1/2 top-0 h-full w-[600px] z-10 pointer-events-none" viewBox="0 0 600 800" preserveAspectRatio="none">
             <path
               ref={pathRef}
@@ -98,7 +100,7 @@ export default function ProfessionalExperience() {
             />
           </svg>
 
-          {/* Moving Glow Ball (Digital Core) from Reference */}
+          {/* Moving Glow Ball (Digital Core) */}
           <div 
             ref={ballRef}
             className="absolute w-12 h-12 z-20 rounded-full p-1 bg-surface/50 backdrop-blur-xl border border-stroke shadow-lg"
@@ -130,8 +132,8 @@ export default function ProfessionalExperience() {
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 1, ease: "power3.out" }}
-                className={`absolute w-full md:w-[350px] p-6 md:p-8 rounded-[20px] glass-card group transition-all duration-500 hover:-translate-y-1 hover:border-accent/30 z-10
-                  ${exp.side === 'left' ? 'md:right-[60%] text-right' : 'md:left-[60%] text-left'}
+                className={`absolute w-full md:w-[420px] p-6 md:p-8 rounded-[28px] glass-card group transition-all duration-500 hover:-translate-y-1 hover:border-accent/30 z-10
+                  ${exp.side === 'left' ? 'md:right-[58%] text-right' : 'md:left-[58%] text-left'}
                 `}
                 style={{ top: exp.top }}
               >
@@ -140,18 +142,29 @@ export default function ProfessionalExperience() {
                   ${exp.side === 'left' ? '-right-[6px]' : '-left-[6px]'}
                 `} />
 
-                <div className="text-[0.9rem] tracking-[0.1em] uppercase text-muted font-medium mb-2">
+                <div className="text-[0.85rem] tracking-[0.2em] uppercase text-muted font-semibold mb-2">
                   {exp.date}
                 </div>
-                <h3 className="text-xl md:text-2xl font-bold text-text-primary mb-2 leading-tight group-hover:text-accent transition-colors">
+                <h3 className="text-2xl md:text-3xl font-bold text-text-primary mb-1 leading-tight group-hover:text-accent transition-colors">
                   {exp.role}
                 </h3>
                 <div className="text-accent text-lg font-semibold mb-4">
                   {exp.company}
                 </div>
-                <p className="text-muted leading-relaxed text-[0.95rem]">
+                <p className="text-muted leading-relaxed text-[0.95rem] mb-6">
                   {exp.description}
                 </p>
+
+                <div className={`flex flex-wrap gap-2 ${exp.side === 'left' ? 'justify-end' : 'justify-start'}`}>
+                  {exp.skills.map((skill, sIdx) => (
+                    <span 
+                      key={sIdx}
+                      className="px-3 py-1 rounded-full bg-surface/50 border border-stroke text-muted text-[0.8rem] transition-all hover:border-accent/30 hover:text-text-primary"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
               </motion.div>
             ))}
           </div>
@@ -160,7 +173,7 @@ export default function ProfessionalExperience() {
 
       <style>{`
         @media (max-width: 768px) {
-          #experience .relative.max-w-\\[800px\\] {
+          #experience .relative.max-w-[800px] {
             height: auto;
             padding-left: 40px;
             padding-right: 10px;
@@ -174,13 +187,16 @@ export default function ProfessionalExperience() {
             left: 20px;
             transform: translate(-50%, -50%);
           }
-          #experience .absolute.w-full.md\\:w-\\[350px\\] {
+          #experience .absolute.w-full.md\\:w-\\[420px\\] {
             position: relative;
             top: auto !important;
             left: 0 !important;
             right: 0 !important;
             text-align: left;
             margin-bottom: 2.5rem;
+          }
+          #experience .flex.flex-wrap {
+            justify-content: flex-start;
           }
         }
       `}</style>
