@@ -1,104 +1,119 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+"use client";
 
-export default function HeroSection() {
-  const [copied, setCopied] = useState(false);
-  const email = "Sahilmulla9152@gmail.com";
+import React, { useEffect, useRef, useState } from 'react';
+import Hls from 'hls.js';
+import { motion, AnimatePresence } from 'framer-motion';
 
-  const texts = ["Web Designer", "Freelancer", "Coder", "AI & ML Student"];
-  const [index, setIndex] = useState(0);
+const roles = ["AI", "Full Stack", "Automation", "Frontend"];
 
-  // Rotate text every 2.5 seconds
+export default function Hero() {
+  const videoRef = useRef(null);
+  const [roleIndex, setRoleIndex] = useState(0);
+
   useEffect(() => {
+    const video = videoRef.current;
+    const videoSrc = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'; // Placeholder futuristic stream
+
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(videoSrc);
+      hls.attachMedia(video);
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = videoSrc;
+    }
+
     const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % texts.length);
-    }, 2500);
+      setRoleIndex(prev => (prev + 1) % roles.length);
+    }, 2000);
+
     return () => clearInterval(interval);
   }, []);
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(email).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
-    });
-  };
-
   return (
-    <section
-      id="home"
-      className="min-h-screen flex flex-col items-center justify-center text-center px-4 space-y-6"
-    >
-      {/* Tag */}
-      <div className="flex items-center space-x-2 mb-4">
-        <span className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
-        <span className="text-gray-300 text-base md:text-lg font-medium">Available For Work</span>
+    <section id="home" className="relative h-screen w-full overflow-hidden flex items-center justify-center">
+      {/* Video Background */}
+      <div className="absolute inset-0 z-0">
+        <video 
+          ref={videoRef}
+          autoPlay 
+          muted 
+          loop 
+          playsInline
+          className="w-full h-full object-cover opacity-40"
+        />
+        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg/50 to-bg" />
       </div>
 
-      {/* New badge */}
-      <div className="mb-8">
-        <span className="bg-blue-600 text-white text-sm md:text-base font-semibold px-4 py-1 rounded-full shadow-lg">
-          New
-        </span>
-        <span className="ml-3 text-white text-base md:text-lg">ResumeGEN is live! ➜</span>
-      </div>
-
-      {/* Main heading */}
-      <h1 className="text-6xl md:text-8xl font-extrabold text-white mb-6">
-        Coder{" "}
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-pink-500">
-          X
-        </span>{" "}
-        Builder
-      </h1>
-
-      {/* Subtitle */}
-      <p className="text-gray-300 text-xl md:text-2xl max-w-2xl mb-4">
-        Hello, I'm <span className="text-white font-semibold">Sahil Mulla</span>, a Freelance Developer
-      </p>
-
-      {/* Animated role text */}
-      <div className="h-8 md:h-10 mb-10">
-        <AnimatePresence mode="wait">
-          <motion.p
-            key={texts[index]}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.5 }}
-            className="text-gray-400 text-lg md:text-xl"
-          >
-            {texts[index]}
-          </motion.p>
-        </AnimatePresence>
-      </div>
-
-      {/* Buttons */}
-      <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
-        <button className="bg-black border border-gray-700 hover:border-white text-white px-6 py-3 rounded-full flex items-center space-x-2 transition-all duration-300">
-          <a
-            href="https://www.linkedin.com/in/sahil-mulla-625364263/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span>Let’s Connect</span>
-          </a>
-          <a
-            href="https://www.linkedin.com/in/sahil-mulla-625364263/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span className="bg-white text-black p-2 rounded-full">🤝</span>
-          </a>
-        </button>
-
-        {/* Email with copy functionality */}
-        <button
-          onClick={handleCopyEmail}
-          className="text-gray-300 text-base md:text-lg flex items-center space-x-2 hover:text-white transition-colors"
+      <div className="relative z-10 text-center px-6 max-w-4xl">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-xs tracking-[0.3em] uppercase text-muted mb-6"
         >
-          <span>📧 {email}</span>
-          {copied && <span className="text-green-400 text-sm">Copied!</span>}
-        </button>
+          AI ENGINEER • FULL STACK DEVELOPER
+        </motion.div>
+
+        <motion.h1 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="text-6xl md:text-8xl lg:text-9xl font-display italic leading-[0.9] tracking-tight mb-8"
+        >
+          Sahil Mulla
+        </motion.h1>
+
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="text-xl md:text-2xl text-text-primary/80 mb-6"
+        >
+          A{' '}
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={roles[roleIndex]}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="font-display italic text-accent"
+            >
+              {roles[roleIndex]}
+            </motion.span>
+          </AnimatePresence>
+          {' '}engineer based in Mumbai.
+        </motion.div>
+
+        <motion.p 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="text-sm md:text-base text-muted max-w-md mx-auto mb-12"
+        >
+          Software Developer specializing in AI systems, automation workflows, and scalable full-stack applications.
+        </motion.p>
+
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
+          <button className="accent-gradient text-bg font-semibold px-8 py-3 rounded-full hover:opacity-90 transition-opacity">
+            View Projects
+          </button>
+          <button className="border border-stroke hover:border-accent px-8 py-3 rounded-full transition-colors">
+            Download Resume
+          </button>
+        </motion.div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
+        <span className="text-[10px] tracking-[0.3em] text-muted uppercase">Scroll</span>
+        <div className="w-[1px] h-12 bg-stroke relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1/2 bg-accent animate-[scroll-down_2s_infinite]" />
+        </div>
       </div>
     </section>
   );
