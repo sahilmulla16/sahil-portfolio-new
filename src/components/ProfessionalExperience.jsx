@@ -10,22 +10,20 @@ gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
 const experiences = [
   {
-    date: "NOV 2024 – DEC 2024",
-    role: "Freelance Developer",
-    company: "Apexxport Pvt. Ltd.",
-    description: "Received a Letter of Recommendation for outstanding contributions in front-end development, React, and UI/UX optimization. Improved responsiveness and usability across modern web interfaces.",
-    skills: ["React", "UI/UX", "SEO", "Frontend"],
+    date: "Jan 2025 – Feb 2025",
+    role: "Digital Experience Developer",
+    company: "FZ Creation Bags",
+    description: "Developed a full-fledged responsive e-commerce website, implementing product listings, carousels, and enquiry forms using Bootstrap and modern UI/UX practices.",
     side: "left",
-    top: "100px"
+    top: "150px"
   },
   {
-    date: "JUL 2022 – AUG 2022",
-    role: "Web Developer Intern",
-    company: "A to Z IT Solutions",
-    description: "Worked on real-time web development projects using HTML, CSS, and JavaScript. Built responsive interfaces and improved user engagement through optimized UI implementation.",
-    skills: ["JavaScript", "Responsive", "Debugging", "Web Dev"],
+    date: "Jul 2022 – Sep 2022",
+    role: "IT Support & Technical Intern",
+    company: "A TO Z COMPUTERS",
+    description: "Diagnosed and resolved hardware issues, collaborated on component repairs and system assembly, and maintained detailed records of repairs and upgrades.",
     side: "right",
-    top: "420px"
+    top: "450px"
   }
 ];
 
@@ -39,6 +37,7 @@ export default function ProfessionalExperience() {
       const path = pathRef.current;
       const pathLength = path.getTotalLength();
 
+      // Path drawing animation
       gsap.set(path, {
         strokeDasharray: pathLength,
         strokeDashoffset: pathLength
@@ -55,6 +54,7 @@ export default function ProfessionalExperience() {
         }
       });
 
+      // Moving ball animation
       gsap.to(ballRef.current, {
         motionPath: {
           path: path,
@@ -75,40 +75,48 @@ export default function ProfessionalExperience() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="experience" className="relative min-h-[1100px] bg-[#050505] py-24 md:py-32 overflow-hidden">
+    <section ref={sectionRef} id="experience" className="relative min-h-[1100px] bg-bg py-24 md:py-32 overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-4 md:px-10">
         <div className="text-center mb-16 md:mb-24">
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-4">Professional Experience</h2>
-          <p className="text-zinc-400 text-base md:text-lg max-w-xl mx-auto px-4">
-            A journey of growth, innovation, and real-world development.
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-text-primary mb-4">Professional Experience</h2>
+          <p className="text-muted text-base md:text-lg max-w-xl mx-auto px-4">
+            A journey of growth and learning.
           </p>
         </div>
 
-        <div className="relative max-w-[1100px] h-[800px] mx-auto">
-          {/* SVG Curved Path */}
-          <svg className="absolute left-1/2 -translate-x-1/2 top-0 h-full w-[200px] md:w-[300px] z-10 pointer-events-none" viewBox="0 0 300 800" preserveAspectRatio="none">
+        <div className="relative max-w-[800px] h-[800px] mx-auto">
+          {/* SVG Curved Path from Reference */}
+          <svg className="absolute left-1/2 -translate-x-1/2 top-0 h-full w-[600px] z-10 pointer-events-none" viewBox="0 0 600 800" preserveAspectRatio="none">
             <path
               ref={pathRef}
               id="timelinePath"
-              d="M150 50 C 250 150, 50 250, 150 350 S 250 550, 150 700"
+              d="M300,0 Q150,133 300,266 Q450,400 300,533 Q150,666 300,800"
               fill="none"
-              stroke="rgba(255,255,255,0.08)"
-              strokeWidth="2"
-              strokeLinecap="round"
-              className="drop-shadow-[0_0_8px_rgba(99,102,241,0.1)]"
+              stroke="currentColor"
+              strokeWidth="3"
+              className="text-stroke opacity-30"
             />
           </svg>
 
-          {/* Moving Glow Ball */}
+          {/* Moving Glow Ball (Digital Core) from Reference */}
           <div 
             ref={ballRef}
-            className="absolute w-10 h-10 md:w-12 md:h-12 z-20 rounded-full p-1 bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_0_20px_rgba(96,165,250,0.2)]"
+            className="absolute w-12 h-12 z-20 rounded-full p-1 bg-surface/50 backdrop-blur-xl border border-stroke shadow-lg"
           >
-            <svg className="w-full h-full" viewBox="0 0 100 100">
-              <circle className="fill-none stroke-blue-400/20 stroke-[2]" cx="50" cy="50" r="35" />
-              <circle className="fill-blue-400 drop-shadow-[0_0_8px_#60a5fa]" cx="50" cy="50" r="10" />
-              <g className="origin-center animate-[spin_6s_linear_infinite]">
-                <circle className="fill-cyan-400" cx="85" cy="50" r="4" />
+            <svg className="w-full h-full overflow-visible" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <ellipse className="fill-none stroke-accent opacity-20 stroke-[1]" cx="50" cy="50" rx="45" ry="20" />
+              <ellipse className="fill-none stroke-accent opacity-20 stroke-[1]" cx="50" cy="50" rx="20" ry="45" />
+              <ellipse className="fill-none stroke-accent opacity-20 stroke-[1]" cx="50" cy="50" rx="35" ry="35" />
+              <circle className="fill-accent drop-shadow-[0_0_6px_#60a5fa] animate-[pulse_3s_ease-in-out_infinite]" cx="50" cy="50" r="10" />
+              
+              <g className="origin-center animate-[spin_8s_linear_infinite]">
+                <circle className="fill-accent drop-shadow-[0_0_4px_#60a5fa]" cx="50" cy="5" r="4" />
+              </g>
+              <g className="origin-center animate-[spin_10s_linear_infinite_reverse]">
+                <circle className="fill-accent drop-shadow-[0_0_4px_#60a5fa]" cx="15" cy="50" r="3" />
+              </g>
+              <g className="origin-center animate-[spin_12s_linear_infinite]">
+                <circle className="fill-accent drop-shadow-[0_0_4px_#60a5fa]" cx="80" cy="50" r="3.5" />
               </g>
             </svg>
           </div>
@@ -118,43 +126,32 @@ export default function ProfessionalExperience() {
             {experiences.map((exp, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.6 }}
-                className={`absolute w-full md:w-[380px] p-6 md:p-8 rounded-[24px] glass-card group transition-all duration-500 hover:-translate-y-1 hover:border-blue-400/30 z-10
-                  ${exp.side === 'left' ? 'md:right-[56%] text-right' : 'md:left-[56%] text-left'}
+                transition={{ duration: 1, ease: "power3.out" }}
+                className={`absolute w-full md:w-[350px] p-6 md:p-8 rounded-[20px] glass-card group transition-all duration-500 hover:-translate-y-1 hover:border-accent/30 z-10
+                  ${exp.side === 'left' ? 'md:right-[60%] text-right' : 'md:left-[60%] text-left'}
                 `}
                 style={{ top: exp.top }}
               >
                 {/* Connector Dot */}
-                <div className={`absolute w-3 h-3 bg-[#050505] border-2 border-blue-400 rounded-full top-1/2 -translate-y-1/2 shadow-[0_0_12px_rgba(96,165,250,0.6)] hidden md:block
+                <div className={`absolute w-3 h-3 bg-bg border-2 border-accent rounded-full top-1/2 -translate-y-1/2 shadow-[0_0_12px_rgba(96,165,250,0.6)] hidden md:block
                   ${exp.side === 'left' ? '-right-[6px]' : '-left-[6px]'}
                 `} />
 
-                <div className="text-[0.75rem] tracking-[0.15em] uppercase text-zinc-500 font-semibold mb-3">
+                <div className="text-[0.9rem] tracking-[0.1em] uppercase text-muted font-medium mb-2">
                   {exp.date}
                 </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-1 leading-tight group-hover:text-blue-400 transition-colors">
+                <h3 className="text-xl md:text-2xl font-bold text-text-primary mb-2 leading-tight group-hover:text-accent transition-colors">
                   {exp.role}
                 </h3>
-                <div className="text-blue-400 text-lg font-semibold mb-4">
+                <div className="text-accent text-lg font-semibold mb-4">
                   {exp.company}
                 </div>
-                <p className="text-zinc-400 leading-relaxed text-[0.9rem]">
+                <p className="text-muted leading-relaxed text-[0.95rem]">
                   {exp.description}
                 </p>
-
-                <div className={`mt-5 flex flex-wrap gap-2 ${exp.side === 'left' ? 'justify-end' : 'justify-start'}`}>
-                  {exp.skills.map((skill, sIdx) => (
-                    <span 
-                      key={sIdx}
-                      className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-zinc-300 text-[0.75rem] transition-colors hover:border-blue-400/30"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
               </motion.div>
             ))}
           </div>
@@ -163,7 +160,7 @@ export default function ProfessionalExperience() {
 
       <style>{`
         @media (max-width: 768px) {
-          #experience .relative.max-w-\\[1100px\\] {
+          #experience .relative.max-w-\\[800px\\] {
             height: auto;
             padding-left: 40px;
             padding-right: 10px;
@@ -173,20 +170,17 @@ export default function ProfessionalExperience() {
             transform: none;
             width: 100px;
           }
-          #experience .absolute.w-10 {
+          #experience .absolute.w-12 {
             left: 20px;
             transform: translate(-50%, -50%);
           }
-          #experience .absolute.w-full.md\\:w-\\[380px\\] {
+          #experience .absolute.w-full.md\\:w-\\[350px\\] {
             position: relative;
             top: auto !important;
             left: 0 !important;
             right: 0 !important;
             text-align: left;
             margin-bottom: 2.5rem;
-          }
-          #experience .justify-end {
-            justify-content: flex-start;
           }
         }
       `}</style>
