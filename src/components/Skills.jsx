@@ -31,36 +31,36 @@ const skillGroups = [
   { name: "Replit", icon: <SiReplit className="text-[#F26207]" /> },
   { name: "Netlify", icon: <SiNetlify className="text-[#00C7B7]" /> },
   { name: "Canva", icon: <SiCanva className="text-[#00C4CC]" /> },
-  { name: "Microsoft Office", icon: <SiMicrosoftoffice className="text-[#D83B01]" /> },
+  { name: "MS Office", icon: <SiMicrosoftoffice className="text-[#D83B01]" /> },
 ];
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-24 px-6 bg-bg">
-      <div className="max-w-[1200px] mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-display italic mb-4">Skills</h2>
-          <p className="text-muted uppercase tracking-widest text-xs">I constantly try to improve</p>
+    <section id="skills" className="py-16 px-4 bg-bg">
+      <div className="max-w-[1000px] mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-display italic mb-2">Skills</h2>
+          <p className="text-muted uppercase tracking-[0.2em] text-[10px]">I constantly try to improve</p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3">
           {skillGroups.map((skill, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.05 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="glass-card rounded-2xl p-6 flex flex-col items-center justify-center gap-4 group relative overflow-hidden border border-stroke hover:border-accent/30 transition-all duration-300"
+              transition={{ delay: index * 0.03 }}
+              whileHover={{ y: -3, scale: 1.02 }}
+              className="glass-card rounded-xl p-3 md:p-4 flex flex-col items-center justify-center gap-2 group relative overflow-hidden border border-stroke hover:border-accent/20 transition-all duration-300"
             >
               <div className="absolute inset-0 accent-gradient opacity-0 group-hover:opacity-5 transition-opacity duration-500" />
               
-              <div className="text-3xl md:text-4xl transition-transform duration-300 group-hover:scale-110">
+              <div className="text-xl md:text-2xl transition-transform duration-300 group-hover:scale-110">
                 {skill.icon}
               </div>
               
-              <span className="text-xs font-medium tracking-widest uppercase text-muted group-hover:text-text-primary transition-colors">
+              <span className="text-[9px] md:text-[10px] font-medium tracking-wider uppercase text-muted group-hover:text-text-primary transition-colors text-center">
                 {skill.name}
               </span>
             </motion.div>
