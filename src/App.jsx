@@ -5,7 +5,6 @@ import LoadingScreen from './components/LoadingScreen';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import SelectedWorks from './components/SelectedWorks';
-import Skills from './components/Skills';
 import ProfessionalExperience from './components/ProfessionalExperience';
 import CreativeEngineering from './components/CreativeEngineering';
 import Stats from './components/Stats';
@@ -29,7 +28,6 @@ export default function App() {
           <main>
             <Hero />
             <SelectedWorks />
-            <Skills />
             <ProfessionalExperience />
             <CreativeEngineering />
             <Stats />
