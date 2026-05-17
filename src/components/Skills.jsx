@@ -34,38 +34,75 @@ const skillGroups = [
   { name: "MS Office", icon: <SiMicrosoftoffice className="text-[#D83B01]" /> },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+      delayChildren: 0.2
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 260,
+      damping: 20
+    }
+  }
+};
+
 export default function Skills() {
   return (
-    <section id="skills" className="py-16 px-4 bg-bg">
+    <section id="skills" className="py-20 px-4 bg-bg">
       <div className="max-w-[1000px] mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-display italic mb-2">Skills</h2>
-          <p className="text-muted uppercase tracking-[0.2em] text-[10px]">I constantly try to improve</p>
-        </div>
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-4xl font-display italic mb-3">Technical Arsenal</h2>
+          <p className="text-muted uppercase tracking-[0.3em] text-[10px] opacity-60">Continuous Learning & Evolution</p>
+        </motion.div>
 
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4"
+        >
           {skillGroups.map((skill, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.03 }}
-              whileHover={{ y: -3, scale: 1.02 }}
-              className="glass-card rounded-xl p-3 md:p-4 flex flex-col items-center justify-center gap-2 group relative overflow-hidden border border-stroke hover:border-accent/20 transition-all duration-300"
+              variants={itemVariants}
+              whileHover={{ 
+                y: -8, 
+                scale: 1.05,
+                transition: { type: "spring", stiffness: 400, damping: 10 }
+              }}
+              className="glass-card rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center gap-3 group relative overflow-hidden border border-stroke hover:border-accent/40 transition-colors duration-500"
             >
-              <div className="absolute inset-0 accent-gradient opacity-0 group-hover:opacity-5 transition-opacity duration-500" />
+              {/* Subtle Glow Effect */}
+              <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
-              <div className="text-xl md:text-2xl transition-transform duration-300 group-hover:scale-110">
+              <div className="text-2xl md:text-3xl transition-transform duration-500 group-hover:scale-110 relative z-10">
                 {skill.icon}
               </div>
               
-              <span className="text-[9px] md:text-[10px] font-medium tracking-wider uppercase text-muted group-hover:text-text-primary transition-colors text-center">
+              <span className="text-[10px] md:text-[11px] font-medium tracking-widest uppercase text-muted group-hover:text-text-primary transition-colors text-center relative z-10">
                 {skill.name}
               </span>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
