@@ -36,12 +36,17 @@ export default function Navbar() {
           ))}
         </div>
 
-        <button className="group relative px-4 py-1.5 rounded-full overflow-hidden">
+        <a 
+          href="https://www.linkedin.com/in/sahil-mulla-625364263/" 
+          target="_blank" 
+          rel="noreferrer"
+          className="group relative px-4 py-1.5 rounded-full overflow-hidden block"
+        >
           <div className="absolute inset-0 border border-stroke group-hover:border-accent transition-colors duration-300 rounded-full" />
           <span className="text-xs uppercase tracking-widest relative z-10 flex items-center gap-2">
             Let's Connect <span className="text-sm">↗</span>
           </span>
-        </button>
+        </a>
       </div>
     </nav>
   );
