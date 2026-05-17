@@ -8,7 +8,7 @@ import {
 } from 'react-icons/fa';
 import { 
   SiThreedotjs, SiGreensock, SiFirebase, 
-  SiVisualstudiocode, SiReplit, SiNetlify, SiCanva, SiMicrosoftoffice 
+  SiVisualstudiocode, SiReplit, SiNetlify
 } from 'react-icons/si';
 
 const skillGroups = [
@@ -30,8 +30,6 @@ const skillGroups = [
   { name: "VS Code", icon: <SiVisualstudiocode className="text-[#007ACC]" /> },
   { name: "Replit", icon: <SiReplit className="text-[#F26207]" /> },
   { name: "Netlify", icon: <SiNetlify className="text-[#00C7B7]" /> },
-  { name: "Canva", icon: <SiCanva className="text-[#00C4CC]" /> },
-  { name: "MS Office", icon: <SiMicrosoftoffice className="text-[#D83B01]" /> },
 ];
 
 const containerVariants = {
@@ -93,7 +91,7 @@ export default function Skills() {
               {/* Subtle Glow Effect */}
               <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
-              <div className="text-2xl md:text-3xl transition-transform duration-500 group-hover:scale-110 relative z-10">
+              <div className="text-2xl md:text-3xl transition-transform duration-300 group-hover:scale-110 relative z-10">
                 {skill.icon}
               </div>
               
