@@ -48,7 +48,7 @@ const projects = [
     description: "Multi-agent AI platform with RAG pipelines, workflow orchestration, and local LLM fallback systems.",
     tech: ["Python", "React", "LangGraph", "ChromaDB"],
     size: "md:col-span-2 md:row-span-2",
-    video: "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
+    video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
   },
   {
     title: "Smart Lathe AI",
@@ -62,14 +62,14 @@ const projects = [
     description: "Voice-enabled assistant capable of automation, command execution, and scheduling workflows.",
     tech: ["Python", "JavaScript"],
     size: "md:col-span-1 md:row-span-1",
-    video: "https://stream.mux.com/v69v91769025t896uB008793012.m3u8"
+    video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
   },
   {
     title: "User Activity Monitoring",
     description: "Secure session tracking and activity monitoring platform with authentication and reporting systems.",
     tech: ["Python", "Session Tracking"],
     size: "md:col-span-2 md:row-span-1",
-    video: "https://playertest.longtailvideo.com/adaptive/wowzaid3/playlist.m3u8"
+    video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
   }
 ];
 
