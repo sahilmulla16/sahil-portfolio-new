@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Hls from 'hls.js';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const roles = ["AI", "Full Stack", "Automation", "Frontend"];
+const roles = ["Freelancer", "Coder", "Developer", "AI & ML", "Researcher"];
 
 export default function Hero() {
   const videoRef = useRef(null);
@@ -12,7 +12,7 @@ export default function Hero() {
 
   useEffect(() => {
     const video = videoRef.current;
-    const videoSrc = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'; // Placeholder futuristic stream
+    const videoSrc = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
 
     if (Hls.isSupported()) {
       const hls = new Hls();
@@ -67,9 +67,8 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-xl md:text-2xl text-text-primary/80 mb-6"
+          className="text-2xl md:text-4xl h-12 flex items-center justify-center mb-6"
         >
-          A{' '}
           <AnimatePresence mode="wait">
             <motion.span
               key={roles[roleIndex]}
@@ -81,7 +80,6 @@ export default function Hero() {
               {roles[roleIndex]}
             </motion.span>
           </AnimatePresence>
-          {' '}engineer based in Mumbai.
         </motion.div>
 
         <motion.p 
