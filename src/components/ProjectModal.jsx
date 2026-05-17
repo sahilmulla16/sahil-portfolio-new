@@ -1,0 +1,123 @@
+"use client";
+
+import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X } from 'lucide-react';
+
+export default function ProjectModal({ project, isOpen, onClose }) {
+  if (!project) return null;
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="absolute inset-0 bg-black/90 backdrop-blur-sm"
+          />
+
+          {/* Modal Content */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            className="relative w-full max-w-5xl max-h-[90vh] bg-surface border border-stroke rounded-[32px] overflow-hidden flex flex-col"
+          >
+            {/* Close Button */}
+            <button
+              onClick={onClose}
+              className="absolute top-6 right-6 z-50 w-10 h-10 rounded-full bg-black/50 border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors"
+            >
+              <X size={20} />
+            </button>
+
+            {/* Scrollable Area */}
+            <div className="overflow-y-auto custom-scrollbar">
+              {/* Header Image */}
+              <div className="relative h-[300px] md:h-[450px] w-full">
+                <img
+                  src={project.image || "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1600"}
+                  alt={project.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent" />
+              </div>
+
+              {/* Content */}
+              <div className="p-8 md:p-12 -mt-20 relative z-10">
+                <div className="flex flex-wrap gap-3 mb-6">
+                  {project.tech.map((t) => (
+                    <span key={t} className="text-[10px] uppercase tracking-widest text-accent border border-accent/30 px-3 py-1 rounded-full bg-accent/5 backdrop-blur-sm">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                <h2 className="text-4xl md:text-6xl font-display italic mb-8">{project.title}</h2>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                  <div className="md:col-span-2 space-y-8">
+                    <div>
+                      <h4 className="text-xs uppercase tracking-[0.2em] text-muted mb-4">Overview</h4>
+                      <p className="text-lg text-text-primary/80 leading-relaxed">
+                        {project.longDescription || project.description}
+                      </p>
+                    </div>
+
+                    {project.features && (
+                      <div>
+                        <h4 className="text-xs uppercase tracking-[0.2em] text-muted mb-4">Key Features</h4>
+                        <ul className="space-y-4">
+                          {project.features.map((feature, i) => (
+                            <li key={i} className="flex items-start gap-4 text-text-primary/70">
+                              <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="space-y-8">
+                    <div>
+                      <h4 className="text-xs uppercase tracking-[0.2em] text-muted mb-4">Project Links</h4>
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-accent transition-colors group"
+                      >
+                        <span className="text-sm font-medium">View Source</span>
+                        <span className="text-xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">↗</span>
+                      </a>
+                    </div>
+
+                    {project.paper && (
+                      <div>
+                        <h4 className="text-xs uppercase tracking-[0.2em] text-muted mb-4">Research</h4>
+                        <a
+                          href={project.paper}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-accent transition-colors group"
+                        >
+                          <span className="text-sm font-medium">Read Paper</span>
+                          <span className="text-xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">↗</span>
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
+}

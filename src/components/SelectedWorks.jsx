@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import Hls from 'hls.js';
+import ProjectModal from './ProjectModal';
 
 const ProjectVideo = ({ src, isHovered }) => {
   const videoRef = useRef(null);
@@ -46,46 +47,80 @@ const projects = [
   {
     title: "General AI Agent",
     description: "Multi-agent AI system capable of reasoning, workflow orchestration, and contextual retrieval using RAG pipelines.",
+    longDescription: "Developed a sophisticated multi-agent AI system designed to handle complex reasoning tasks and workflow orchestration. The system leverages Retrieval-Augmented Generation (RAG) to provide contextually accurate responses by querying large-scale vector databases.",
+    features: [
+      "Multi-agent orchestration for complex task handling",
+      "RAG pipelines using vector databases for semantic search",
+      "Local LLM support for improved privacy and reliability",
+      "Published research paper at SmartSSD–2026 conference"
+    ],
     tech: ["Python", "React", "LangGraph", "ChromaDB"],
     size: "md:col-span-2 md:row-span-2",
     video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
-    link: "https://github.com/sahilmulla16/DEV-Hackathon.git"
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1600",
+    link: "https://github.com/sahilmulla16/DEV-Hackathon.git",
+    paper: "https://drive.google.com/file/d/1niAOmCsanh8DIH2PjJ2TnTgYRsLACaqH/view?usp=sharing"
   },
   {
     title: "Smart Lathe AI",
     description: "AI-driven predictive maintenance solution for machining operations, enhancing precision and automation.",
+    longDescription: "Designed and implemented an AI-driven solution for predictive maintenance in industrial machining. By analyzing real-time sensor data, the system can predict potential failures before they occur, significantly reducing downtime and improving operational efficiency.",
+    features: [
+      "Real-time sensor data analysis and monitoring",
+      "Predictive failure modeling using machine learning",
+      "Automated alerts and maintenance scheduling",
+      "Reduced dependency on manual supervision"
+    ],
     tech: ["Python", "Machine Learning"],
     size: "md:col-span-1 md:row-span-1",
     video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1600",
     link: "https://drive.google.com/file/d/1_a1ZZ1SedLEIguJCsoHzwGvtF3OHOcGA/view?usp=sharing"
   },
   {
     title: "AI Virtual Assistant",
     description: "Voice-enabled assistant capable of executing commands, scheduling automation, and retrieving real-time info.",
+    longDescription: "Built a comprehensive voice-enabled virtual assistant that integrates speech recognition with task automation. The assistant can process natural language commands to manage schedules, retrieve information, and control connected devices.",
+    features: [
+      "Advanced speech recognition and NLP processing",
+      "Real-time command execution and task scheduling",
+      "Productivity enhancement through automated workflows",
+      "Responsive web-based interface for visual feedback"
+    ],
     tech: ["Python", "JavaScript", "Bootstrap"],
     size: "md:col-span-1 md:row-span-1",
     video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+    image: "https://images.unsplash.com/photo-1589254065878-42c9da997008?auto=format&fit=crop&q=80&w=1600",
     link: "https://github.com/sahilmulla16/Jarvis"
   },
   {
     title: "User Activity Monitoring",
     description: "Secure session tracking and activity monitoring platform with authentication and reporting systems.",
+    longDescription: "Developed a robust platform for monitoring user activity and managing secure sessions. The system provides detailed reporting and analytics on user behavior while ensuring data integrity through advanced authentication mechanisms.",
+    features: [
+      "Secure session management and authentication",
+      "Real-time activity tracking and logging",
+      "Comprehensive reporting and analytics dashboard",
+      "Scalable architecture for high-concurrency environments"
+    ],
     tech: ["Python", "Session Tracking"],
     size: "md:col-span-2 md:row-span-1",
     video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+    image: "https://images.unsplash.com/photo-1551288049-bbbda546697a?auto=format&fit=crop&q=80&w=1600",
     link: "https://github.com/sahilmulla16"
   }
 ];
 
-const ProjectCard = ({ project }) => {
+const ProjectCard = ({ project, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => onClick(project)}
       whileHover={{ scale: 0.98 }}
-      className={`glass-card rounded-3xl p-8 flex flex-col justify-between group relative overflow-hidden ${project.size}`}
+      className={`glass-card rounded-3xl p-8 flex flex-col justify-between group relative overflow-hidden cursor-pointer ${project.size}`}
     >
       {/* Video Background */}
       <ProjectVideo src={project.video} isHovered={isHovered} />
@@ -106,14 +141,9 @@ const ProjectCard = ({ project }) => {
       </div>
 
       <div className="mt-12 flex justify-between items-center relative z-10">
-        <a 
-          href={project.link}
-          target="_blank"
-          rel="noreferrer"
-          className="w-10 h-10 rounded-full border border-stroke flex items-center justify-center group-hover:border-accent transition-colors bg-bg/50 backdrop-blur-sm hover:scale-110 active:scale-95"
-        >
+        <div className="w-10 h-10 rounded-full border border-stroke flex items-center justify-center group-hover:border-accent transition-colors bg-bg/50 backdrop-blur-sm">
           <span className="text-lg">↗</span>
-        </a>
+        </div>
         <span className="text-[10px] uppercase tracking-widest text-muted opacity-0 group-hover:opacity-100 transition-opacity">
           Explore Project
         </span>
@@ -123,6 +153,8 @@ const ProjectCard = ({ project }) => {
 };
 
 export default function SelectedWorks() {
+  const [selectedProject, setSelectedProject] = useState(null);
+
   return (
     <section id="projects" className="py-24 px-6 bg-bg">
       <div className="max-w-[1200px] mx-auto">
@@ -138,10 +170,20 @@ export default function SelectedWorks() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {projects.map((project, index) => (
-            <ProjectCard key={index} project={project} />
+            <ProjectCard 
+              key={index} 
+              project={project} 
+              onClick={(p) => setSelectedProject(p)}
+            />
           ))}
         </div>
       </div>
+
+      <ProjectModal 
+        project={selectedProject} 
+        isOpen={!!selectedProject} 
+        onClose={() => setSelectedProject(null)} 
+      />
     </section>
   );
 }
