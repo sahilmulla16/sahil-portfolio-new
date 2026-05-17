@@ -10,7 +10,7 @@ import {
   FaMicrosoft 
 } from 'react-icons/fa';
 import { 
-  SiVisualstudiocode, SiFirebase, SiN8n, SiNetlify, 
+  SiVisualstudiocode, SiFirebase, SiNetlify, 
   SiReplit, SiCanva, SiThreedotjs, SiGreensock 
 } from 'react-icons/si';
 
@@ -36,7 +36,7 @@ const skillCategories = [
   {
     title: "AI / Automation",
     skills: [
-      { name: "n8n", icon: <SiN8n />, color: "#FF6D5A" },
+      { name: "n8n", icon: <span className="text-2xl">⚙️</span>, color: "#FF6D5A" },
       { name: "Retell.ai", icon: <span className="text-2xl">🤖</span>, color: "#60A5FA" },
     ]
   },
