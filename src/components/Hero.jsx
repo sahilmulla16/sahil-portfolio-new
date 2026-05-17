@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Hls from 'hls.js';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const roles = ["Freelancer", "Coder", "Developer", "AI & ML", "Researcher"];
+const roles = ["Freelancer", "Coder", "Developer", "AI & ML Developer", "Researcher"];
 
 export default function Hero() {
   const videoRef = useRef(null);
