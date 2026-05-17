@@ -8,6 +8,8 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", to: "home" },
     { name: "Projects", to: "projects" },
+    { name: "Skills", to: "skills" },
+    { name: "Experience", to: "experience" },
     { name: "Resume", to: "resume" }
   ];
 
