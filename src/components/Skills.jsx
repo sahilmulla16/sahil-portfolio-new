@@ -7,7 +7,7 @@ import {
   FaHtml5, FaCss3Alt, FaJsSquare, FaGitAlt, FaGithub, FaRobot
 } from 'react-icons/fa';
 import { 
-  SiThreedotjs, SiGreensock, SiFirebase, SiN8n, 
+  SiThreedotjs, SiGreensock, SiFirebase, 
   SiVisualstudiocode, SiReplit, SiNetlify, SiCanva, SiMicrosoftoffice 
 } from 'react-icons/si';
 
@@ -23,7 +23,7 @@ const skillGroups = [
   { name: "HTML", icon: <FaHtml5 className="text-[#E34F26]" /> },
   { name: "CSS", icon: <FaCss3Alt className="text-[#1572B6]" /> },
   { name: "JavaScript", icon: <FaJsSquare className="text-[#F7DF1E]" /> },
-  { name: "n8n", icon: <SiN8n className="text-[#FF6D5B]" /> },
+  { name: "n8n", icon: <FaRobot className="text-[#FF6D5B]" /> },
   { name: "Retell.ai", icon: <FaRobot className="text-accent" /> },
   { name: "Git", icon: <FaGitAlt className="text-[#F05032]" /> },
   { name: "GitHub", icon: <FaGithub className="text-white" /> },
