@@ -7,10 +7,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
   FaPython, FaJava, FaReact, FaDatabase, FaBootstrap, 
   FaHtml5, FaCss3Alt, FaJsSquare, FaGitAlt, FaGithub, 
-  FaMicrosoft 
+  FaMicrosoft, FaCode, FaRobot 
 } from 'react-icons/fa';
 import { 
-  SiVisualstudiocode, SiFirebase, SiN8n, SiNetlify, 
+  SiVisualstudiocode, SiFirebase, SiN8N, SiNetlify, 
   SiReplit, SiCanva, SiThreedotjs, SiGreensock 
 } from 'react-icons/si';
 
@@ -23,8 +23,8 @@ const skillCategories = [
       { name: "Python", icon: <FaPython />, color: "#3776AB" },
       { name: "Java", icon: <FaJava />, color: "#007396" },
       { name: "React", icon: <FaReact />, color: "#61DAFB" },
-      { name: "Three.js", icon: <SiThreedotjs />, color: "#FFFFFF" },
-      { name: "GSAP", icon: <SiGreensock />, color: "#88CE02" },
+      { name: "Three.js", icon: <span className="text-2xl">⚡</span>, color: "#FFFFFF" },
+      { name: "GSAP", icon: <span className="text-2xl">🚀</span>, color: "#88CE02" },
       { name: "SQL", icon: <FaDatabase />, color: "#4479A1" },
       { name: "Firebase", icon: <SiFirebase />, color: "#FFCA28" },
       { name: "Bootstrap", icon: <FaBootstrap />, color: "#7952B3" },
@@ -36,7 +36,7 @@ const skillCategories = [
   {
     title: "AI / Automation",
     skills: [
-      { name: "n8n", icon: <SiN8n />, color: "#FF6D5A" },
+      { name: "n8n", icon: <span className="text-2xl">⚙️</span>, color: "#FF6D5A" },
       { name: "Retell.ai", icon: <span className="text-2xl">🤖</span>, color: "#60A5FA" },
     ]
   },
@@ -46,9 +46,9 @@ const skillCategories = [
       { name: "Git", icon: <FaGitAlt />, color: "#F05032" },
       { name: "GitHub", icon: <FaGithub />, color: "#FFFFFF" },
       { name: "VS Code", icon: <SiVisualstudiocode />, color: "#007ACC" },
-      { name: "Replit", icon: <SiReplit />, color: "#F26207" },
-      { name: "Netlify", icon: <SiNetlify />, color: "#00C7B7" },
-      { name: "Canva", icon: <SiCanva />, color: "#00C4CC" },
+      { name: "Replit", icon: <span className="text-2xl">💻</span>, color: "#F26207" },
+      { name: "Netlify", icon: <span className="text-2xl">🌐</span>, color: "#00C7B7" },
+      { name: "Canva", icon: <span className="text-2xl">🎨</span>, color: "#00C4CC" },
       { name: "Microsoft Office", icon: <FaMicrosoft />, color: "#D83B01" },
     ]
   }
@@ -162,7 +162,7 @@ export default function Skills() {
                   {skill.name}
                 </h3>
 
-                {/* Animated Border Gradient */}
+                {/* Animated Border Gradient (Optional Advanced Effect) */}
                 <div className="absolute inset-0 rounded-[24px] border border-transparent [mask-image:linear-gradient(white,white)] before:absolute before:inset-0 before:rounded-[24px] before:border before:border-white/10 before:content-[''] group-hover:before:border-blue-500/50 transition-colors" />
               </div>
             </motion.div>
