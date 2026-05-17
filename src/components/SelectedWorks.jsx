@@ -45,31 +45,35 @@ const ProjectVideo = ({ src, isHovered }) => {
 const projects = [
   {
     title: "General AI Agent",
-    description: "Multi-agent AI platform with RAG pipelines, workflow orchestration, and local LLM fallback systems.",
+    description: "Multi-agent AI system capable of reasoning, workflow orchestration, and contextual retrieval using RAG pipelines.",
     tech: ["Python", "React", "LangGraph", "ChromaDB"],
     size: "md:col-span-2 md:row-span-2",
-    video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+    video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+    link: "https://github.com/sahilmulla16/DEV-Hackathon.git"
   },
   {
     title: "Smart Lathe AI",
-    description: "Predictive maintenance and machining intelligence system using machine learning analytics.",
+    description: "AI-driven predictive maintenance solution for machining operations, enhancing precision and automation.",
     tech: ["Python", "Machine Learning"],
     size: "md:col-span-1 md:row-span-1",
-    video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+    video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+    link: "https://drive.google.com/file/d/1_a1ZZ1SedLEIguJCsoHzwGvtF3OHOcGA/view?usp=sharing"
   },
   {
     title: "AI Virtual Assistant",
-    description: "Voice-enabled assistant capable of automation, command execution, and scheduling workflows.",
-    tech: ["Python", "JavaScript"],
+    description: "Voice-enabled assistant capable of executing commands, scheduling automation, and retrieving real-time info.",
+    tech: ["Python", "JavaScript", "Bootstrap"],
     size: "md:col-span-1 md:row-span-1",
-    video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+    video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+    link: "https://github.com/sahilmulla16/Jarvis"
   },
   {
     title: "User Activity Monitoring",
     description: "Secure session tracking and activity monitoring platform with authentication and reporting systems.",
     tech: ["Python", "Session Tracking"],
     size: "md:col-span-2 md:row-span-1",
-    video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+    video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+    link: "https://github.com/sahilmulla16"
   }
 ];
 
@@ -102,9 +106,14 @@ const ProjectCard = ({ project }) => {
       </div>
 
       <div className="mt-12 flex justify-between items-center relative z-10">
-        <div className="w-10 h-10 rounded-full border border-stroke flex items-center justify-center group-hover:border-accent transition-colors bg-bg/50 backdrop-blur-sm">
+        <a 
+          href={project.link}
+          target="_blank"
+          rel="noreferrer"
+          className="w-10 h-10 rounded-full border border-stroke flex items-center justify-center group-hover:border-accent transition-colors bg-bg/50 backdrop-blur-sm hover:scale-110 active:scale-95"
+        >
           <span className="text-lg">↗</span>
-        </div>
+        </a>
         <span className="text-[10px] uppercase tracking-widest text-muted opacity-0 group-hover:opacity-100 transition-opacity">
           Explore Project
         </span>
