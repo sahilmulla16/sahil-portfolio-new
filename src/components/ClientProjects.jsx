@@ -103,22 +103,15 @@ export default function ClientProjects() {
 
       {/* Sliding Container */}
       <div 
-        className="relative flex"
+        className="relative flex overflow-hidden"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
-        <motion.div
-          className="flex gap-6 px-6"
-          animate={{
-            x: isPaused ? undefined : ["0%", "-50%"]
-          }}
-          transition={{
-            x: {
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 40,
-              ease: "linear",
-            },
+        <div
+          className="flex gap-6 px-6 marquee-content"
+          style={{ 
+            animationPlayState: isPaused ? 'paused' : 'running',
+            width: 'max-content'
           }}
         >
           {duplicatedProjects.map((project, index) => (
@@ -163,7 +156,7 @@ export default function ClientProjects() {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
       <ProjectModal 
@@ -171,6 +164,16 @@ export default function ClientProjects() {
         isOpen={!!selectedProject}
         onClose={() => setSelectedProject(null)}
       />
+
+      <style>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .marquee-content {
+          animation: marquee 40s linear infinite;
+        }
+      `}</style>
     </section>
   );
 }
