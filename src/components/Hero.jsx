@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Hls from 'hls.js';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link as ScrollLink } from 'react-scroll';
 
 const roles = ["Freelancer", "Coder", "Developer", "AI & ML Developer", "Researcher"];
 
@@ -97,12 +98,21 @@ export default function Hero() {
           transition={{ delay: 0.4 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <button className="accent-gradient text-bg font-semibold px-8 py-3 rounded-full hover:opacity-90 transition-opacity">
+          <ScrollLink
+            to="projects"
+            smooth={true}
+            duration={800}
+            className="accent-gradient text-bg font-semibold px-8 py-3 rounded-full hover:opacity-90 transition-opacity cursor-pointer"
+          >
             View Projects
-          </button>
-          <button className="border border-stroke hover:border-accent px-8 py-3 rounded-full transition-colors">
+          </ScrollLink>
+          <a 
+            href="/Resume.pdf" 
+            download="Sahil_Mulla_Resume.pdf"
+            className="border border-stroke hover:border-accent px-8 py-3 rounded-full transition-colors"
+          >
             Download Resume
-          </button>
+          </a>
         </motion.div>
       </div>
 
