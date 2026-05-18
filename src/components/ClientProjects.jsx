@@ -87,27 +87,45 @@ const clientProjects = [
   }
 ];
 
+// Duplicate projects for seamless loop
+const duplicatedProjects = [...clientProjects, ...clientProjects];
+
 export default function ClientProjects() {
   const [selectedProject, setSelectedProject] = useState(null);
+  const [isPaused, setIsPaused] = useState(false);
 
   return (
-    <section id="client-work" className="py-24 px-6 bg-bg/50">
-      <div className="max-w-[1200px] mx-auto">
-        <div className="mb-16">
-          <h2 className="text-4xl md:text-5xl font-display italic mb-4">Client work</h2>
-          <p className="text-muted">Delivering bespoke digital solutions and high-performance experiences for global brands.</p>
-        </div>
+    <section id="client-work" className="py-24 bg-bg/50 overflow-hidden">
+      <div className="max-w-[1200px] mx-auto px-6 mb-16">
+        <h2 className="text-4xl md:text-5xl font-display italic mb-4">Client work</h2>
+        <p className="text-muted">Delivering bespoke digital solutions and high-performance experiences for global brands.</p>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {clientProjects.map((project, index) => (
+      {/* Sliding Container */}
+      <div 
+        className="relative flex"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
+        <motion.div
+          className="flex gap-6 px-6"
+          animate={{
+            x: isPaused ? undefined : ["0%", "-50%"]
+          }}
+          transition={{
+            x: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 40,
+              ease: "linear",
+            },
+          }}
+        >
+          {duplicatedProjects.map((project, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
               onClick={() => setSelectedProject(project)}
-              className="glass-card rounded-[2rem] p-8 group cursor-pointer relative overflow-hidden border-stroke hover:border-accent/20 transition-all duration-500"
+              className="glass-card rounded-[2rem] p-8 group cursor-pointer relative overflow-hidden border-stroke hover:border-accent/20 transition-all duration-500 w-[350px] md:w-[400px] shrink-0"
             >
               {/* Colored Glow Accent */}
               <div 
@@ -131,21 +149,21 @@ export default function ClientProjects() {
                 <h3 className="text-3xl font-display italic mb-4 group-hover:text-accent transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-sm text-muted leading-relaxed mb-8">
+                <p className="text-sm text-muted leading-relaxed mb-8 line-clamp-3">
                   {project.description}
                 </p>
 
                 <div className="flex flex-wrap gap-2 mt-auto">
-                  {project.tech.slice(0, 3).map((t) => (
-                    <span key={t} className="text-[9px] uppercase tracking-widest text-muted/60">
-                      {t} {index < project.tech.slice(0, 3).length - 1 ? "•" : ""}
+                  {project.tech.slice(0, 3).map((t, i) => (
+                    <span key={i} className="text-[9px] uppercase tracking-widest text-muted/60">
+                      {t} {i < project.tech.slice(0, 3).length - 1 ? "•" : ""}
                     </span>
                   ))}
                 </div>
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
 
       <ProjectModal 
