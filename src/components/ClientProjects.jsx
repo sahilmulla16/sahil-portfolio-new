@@ -91,65 +91,54 @@ export default function ClientProjects() {
   const [selectedProject, setSelectedProject] = useState(null);
 
   return (
-    <section id="client-work" className="py-32 px-6 bg-bg relative">
+    <section id="client-work" className="py-24 px-6 bg-bg/50">
       <div className="max-w-[1200px] mx-auto">
-        <div className="mb-20 text-center md:text-left">
-          <h2 className="text-5xl md:text-7xl font-display italic mb-6">Client work</h2>
-          <p className="text-muted text-lg max-w-2xl">
-            Building bespoke digital solutions and high-performance applications for brands and businesses.
-          </p>
+        <div className="mb-16">
+          <h2 className="text-4xl md:text-5xl font-display italic mb-4">Client work</h2>
+          <p className="text-muted">Delivering bespoke digital solutions and high-performance experiences for global brands.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {clientProjects.map((project, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ delay: index * 0.1 }}
               onClick={() => setSelectedProject(project)}
-              className="glass-card rounded-[2.5rem] p-10 group cursor-pointer relative overflow-hidden border-stroke hover:border-accent/30 transition-all duration-700"
+              className="glass-card rounded-[2rem] p-8 group cursor-pointer relative overflow-hidden border-stroke hover:border-accent/20 transition-all duration-500"
             >
-              {/* Animated Background Glow */}
+              {/* Colored Glow Accent */}
               <div 
-                className="absolute -top-32 -right-32 w-64 h-64 rounded-full blur-[100px] opacity-0 group-hover:opacity-25 transition-opacity duration-1000"
+                className="absolute -top-24 -right-24 w-48 h-48 rounded-full blur-[80px] opacity-0 group-hover:opacity-20 transition-opacity duration-700"
                 style={{ backgroundColor: project.themeColor }}
               />
 
-              <div className="relative z-10 h-full flex flex-col">
-                <div className="flex justify-between items-start mb-16">
+              <div className="relative z-10">
+                <div className="flex justify-between items-start mb-12">
                   <span 
-                    className="text-[11px] uppercase tracking-[0.25em] font-semibold px-4 py-1.5 rounded-full border"
-                    style={{ 
-                      color: project.themeColor, 
-                      borderColor: `${project.themeColor}44`,
-                      backgroundColor: `${project.themeColor}11`
-                    }}
+                    className="text-[10px] uppercase tracking-[0.2em] px-3 py-1 rounded-full border border-stroke"
+                    style={{ color: project.themeColor, borderColor: `${project.themeColor}33` }}
                   >
                     {project.category}
                   </span>
-                  <motion.div 
-                    whileHover={{ scale: 1.1, rotate: 45 }}
-                    className="w-12 h-12 rounded-full border border-stroke flex items-center justify-center group-hover:border-accent group-hover:bg-accent group-hover:text-bg transition-all duration-500"
-                  >
-                    <span className="text-xl">↗</span>
-                  </motion.div>
+                  <div className="w-8 h-8 rounded-full border border-stroke flex items-center justify-center group-hover:border-accent transition-colors">
+                    <span className="text-sm">↗</span>
+                  </div>
                 </div>
 
-                <div className="flex-1">
-                  <h3 className="text-4xl font-display italic mb-6 group-hover:text-accent transition-colors duration-500">
-                    {project.title}
-                  </h3>
-                  <p className="text-muted leading-relaxed mb-10">
-                    {project.description}
-                  </p>
-                </div>
+                <h3 className="text-3xl font-display italic mb-4 group-hover:text-accent transition-colors">
+                  {project.title}
+                </h3>
+                <p className="text-sm text-muted leading-relaxed mb-8">
+                  {project.description}
+                </p>
 
-                <div className="flex flex-wrap gap-3 mt-auto pt-8 border-t border-stroke/50">
-                  {project.tech.map((t) => (
-                    <span key={t} className="text-[10px] uppercase tracking-widest text-muted/50 font-medium">
-                      {t}
+                <div className="flex flex-wrap gap-2 mt-auto">
+                  {project.tech.slice(0, 3).map((t) => (
+                    <span key={t} className="text-[9px] uppercase tracking-widest text-muted/60">
+                      {t} {index < project.tech.slice(0, 3).length - 1 ? "•" : ""}
                     </span>
                   ))}
                 </div>
