@@ -102,12 +102,10 @@ export default function ClientProjects() {
           {clientProjects.map((project, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              onMouseEnter={true}
-              onMouseLeave={false}
               onClick={() => setSelectedProject(project)}
               className="glass-card rounded-[2rem] p-8 group cursor-pointer relative overflow-hidden border-stroke hover:border-accent/20 transition-all duration-500"
             >
