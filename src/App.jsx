@@ -5,6 +5,7 @@ import LoadingScreen from './components/LoadingScreen';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import SelectedWorks from './components/SelectedWorks';
+import ClientProjects from './components/ClientProjects';
 import Skills from './components/Skills';
 import ProfessionalExperience from './components/ProfessionalExperience';
 import CreativeEngineering from './components/CreativeEngineering';
@@ -29,6 +30,7 @@ export default function App() {
           <main>
             <Hero />
             <SelectedWorks />
+            <ClientProjects />
             <Skills />
             <ProfessionalExperience />
             <CreativeEngineering />
