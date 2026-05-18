@@ -12,7 +12,7 @@ const clientProjects = [
     category: "Fashion E-Commerce",
     tech: ["React", "Tailwind CSS", "GSAP", "Responsive UI"],
     themeColor: "#C084FC",
-    link: "#",
+    link: "https://panache-web.vercel.app/",
     image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=1600",
     features: [
       "Modern product showcases with elegant UI",
@@ -28,7 +28,7 @@ const clientProjects = [
     category: "Business / Agency",
     tech: ["React", "GSAP", "Framer Motion", "Tailwind"],
     themeColor: "#60A5FA",
-    link: "#",
+    link: "https://de-elite-eta.vercel.app/",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1600",
     features: [
       "Glassmorphism UI components",
@@ -44,7 +44,7 @@ const clientProjects = [
     category: "Interactive Experience",
     tech: ["JavaScript", "GSAP", "Three.js", "CSS Animations"],
     themeColor: "#F472B6",
-    link: "#",
+    link: "https://mystery-web-ochre.vercel.app/",
     image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1600",
     features: [
       "3D immersive environments using Three.js",
@@ -60,7 +60,7 @@ const clientProjects = [
     category: "AI Education Platform",
     tech: ["React", "AI APIs", "Tailwind CSS", "Firebase"],
     themeColor: "#22D3EE",
-    link: "#",
+    link: "https://prepmind-ai-six.vercel.app/",
     image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&q=80&w=1600",
     features: [
       "AI-driven study plan generation",
@@ -76,7 +76,7 @@ const clientProjects = [
     category: "Creative Portfolio",
     tech: ["React", "GSAP", "Framer Motion", "Modern UI"],
     themeColor: "#F59E0B",
-    link: "#",
+    link: "https://sorin-web.vercel.app/",
     image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80&w=1600",
     features: [
       "Futuristic motion design elements",
