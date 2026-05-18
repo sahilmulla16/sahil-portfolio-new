@@ -4,6 +4,13 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import ProjectModal from './ProjectModal';
 
+// Import local images
+import panacheImg from '../Pic/panache_cover.png';
+import deeliteImg from '../Pic/deelite_cover.png';
+import mysteryImg from '../Pic/mystery_cover.png';
+import prepmindImg from '../Pic/prepmind_cover.png';
+import sorinImg from '../Pic/sorin_cover.png';
+
 const clientProjects = [
   {
     title: "Panache",
@@ -13,7 +20,7 @@ const clientProjects = [
     tech: ["React", "Tailwind CSS", "GSAP", "Responsive UI"],
     themeColor: "#C084FC",
     link: "https://panache-web.vercel.app/",
-    image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=1600",
+    image: panacheImg,
     features: [
       "Modern product showcases with elegant UI",
       "GSAP-powered smooth scrolling and entrance animations",
@@ -29,7 +36,7 @@ const clientProjects = [
     tech: ["React", "GSAP", "Framer Motion", "Tailwind"],
     themeColor: "#60A5FA",
     link: "https://de-elite-eta.vercel.app/",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1600",
+    image: deeliteImg,
     features: [
       "Glassmorphism UI components",
       "Cinematic scrolling interactions",
@@ -45,7 +52,7 @@ const clientProjects = [
     tech: ["JavaScript", "GSAP", "Three.js", "CSS Animations"],
     themeColor: "#F472B6",
     link: "https://mystery-web-ochre.vercel.app/",
-    image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1600",
+    image: mysteryImg,
     features: [
       "3D immersive environments using Three.js",
       "Story-driven user navigation",
@@ -61,7 +68,7 @@ const clientProjects = [
     tech: ["React", "AI APIs", "Tailwind CSS", "Firebase"],
     themeColor: "#22D3EE",
     link: "https://prepmind-ai-six.vercel.app/",
-    image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&q=80&w=1600",
+    image: prepmindImg,
     features: [
       "AI-driven study plan generation",
       "Real-time intelligent feedback systems",
@@ -77,7 +84,7 @@ const clientProjects = [
     tech: ["React", "GSAP", "Framer Motion", "Modern UI"],
     themeColor: "#F59E0B",
     link: "https://sorin-web.vercel.app/",
-    image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80&w=1600",
+    image: sorinImg,
     features: [
       "Futuristic motion design elements",
       "Immersive UI interactions",
