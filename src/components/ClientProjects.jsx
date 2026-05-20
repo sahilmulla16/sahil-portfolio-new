@@ -104,7 +104,7 @@ export default function ClientProjects() {
   return (
     <section id="client-work" className="py-24 bg-bg/50 overflow-hidden">
       <div className="max-w-[1200px] mx-auto px-6 mb-16">
-        <h2 className="text-4xl md:text-5xl font-display italic mb-4">Client work</h2>
+        <h2 className="text-4xl md:text-5xl font-display italic mb-4">My work</h2>
         <p className="text-muted">Delivering bespoke digital solutions and high-performance experiences for global brands.</p>
       </div>
 
