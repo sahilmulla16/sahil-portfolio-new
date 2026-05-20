@@ -28,16 +28,20 @@ export default function CreativeEngineering() {
         }
       });
 
-      // Cinematic parallax for experiment cards
-      gsap.utils.toArray('.experiment-card').forEach((item, i) => {
-        gsap.to(item, {
-          y: (i % 2 === 0 ? -60 : 60),
-          scrollTrigger: {
-            trigger: item,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1
-          }
+      // Cinematic parallax for experiment cards (Desktop Only)
+      const mm = gsap.matchMedia();
+      
+      mm.add("(min-width: 768px)", () => {
+        gsap.utils.toArray('.experiment-card').forEach((item, i) => {
+          gsap.to(item, {
+            y: (i % 2 === 0 ? -60 : 60),
+            scrollTrigger: {
+              trigger: item,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1
+            }
+          });
         });
       });
     }, containerRef);
@@ -46,7 +50,7 @@ export default function CreativeEngineering() {
 
   return (
     <section ref={containerRef} className="py-24 px-6 overflow-hidden bg-bg">
-      <div className="max-w-[1200px] mx-auto text-center mb-24">
+      <div className="max-w-[1200px] mx-auto text-center mb-16 md:mb-24">
         <h2 ref={titleRef} className="text-5xl md:text-7xl lg:text-8xl font-display italic mb-8">
           Creative Engineering
         </h2>
@@ -66,7 +70,7 @@ export default function CreativeEngineering() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[1400px] mx-auto px-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-8 max-w-[1400px] mx-auto px-4">
         {/* Experiment 01: AI Terminal */}
         <div className="experiment-card h-[400px] lg:h-[450px]">
           <AITerminal />
@@ -84,7 +88,7 @@ export default function CreativeEngineering() {
       </div>
 
       {/* Decorative Cinematic Overlay */}
-      <div className="mt-32 text-center opacity-20">
+      <div className="mt-32 text-center opacity-20 hidden md:block">
         <div className="text-[100px] md:text-[180px] font-display italic leading-none select-none pointer-events-none whitespace-nowrap overflow-hidden">
           INNOVATION • AUTOMATION • DESIGN • ENGINEERING •
         </div>
