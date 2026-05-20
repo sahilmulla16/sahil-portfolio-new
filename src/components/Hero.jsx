@@ -5,7 +5,7 @@ import Hls from 'hls.js';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link as ScrollLink } from 'react-scroll';
 
-const roles = ["Freelancer", "Coder", "Developer", "AI & ML Developer", "Researcher"];
+const roles = ["Freelancer", "Coder", "Developer", "AI & ML", "Researcher"];
 
 export default function Hero() {
   const videoRef = useRef(null);
@@ -31,7 +31,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="home" className="relative h-screen w-full overflow-hidden flex items-center justify-center">
+    <section id="home" className="relative h-screen w-full overflow-hidden flex items-center justify-center pt-20">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <video 
@@ -42,7 +42,7 @@ export default function Hero() {
           playsInline
           className="w-full h-full object-cover opacity-40"
         />
-        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 bg-black/40" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg/50 to-bg" />
       </div>
 
@@ -50,7 +50,7 @@ export default function Hero() {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-xs tracking-[0.3em] uppercase text-muted mb-6"
+          className="text-[9px] md:text-xs tracking-[0.3em] uppercase text-muted mb-4 md:mb-6"
         >
           AI ENGINEER • FULL STACK DEVELOPER
         </motion.div>
@@ -59,7 +59,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-6xl md:text-8xl lg:text-9xl font-display italic leading-[0.9] tracking-tight mb-8"
+          className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-display italic leading-[0.95] tracking-tight mb-6 md:mb-8"
         >
           Sahil Mulla
         </motion.h1>
@@ -68,7 +68,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-2xl md:text-4xl h-12 flex items-center justify-center mb-6"
+          className="text-xl md:text-4xl h-10 md:h-12 flex items-center justify-center mb-4 md:mb-6"
         >
           <AnimatePresence mode="wait">
             <motion.span
@@ -87,7 +87,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="text-sm md:text-base text-muted max-w-md mx-auto mb-12"
+          className="text-[13px] md:text-base text-muted max-w-[280px] md:max-w-md mx-auto mb-10 md:mb-12 leading-relaxed"
         >
           Software Developer specializing in AI systems, automation workflows, and scalable full-stack applications.
         </motion.p>
@@ -102,14 +102,14 @@ export default function Hero() {
             to="projects"
             smooth={true}
             duration={800}
-            className="accent-gradient text-bg font-semibold px-8 py-3 rounded-full hover:opacity-90 transition-opacity cursor-pointer"
+            className="accent-gradient text-bg font-semibold px-8 py-3 rounded-full hover:opacity-90 transition-opacity cursor-pointer w-full sm:w-auto text-sm"
           >
             View Projects
           </ScrollLink>
           <a 
             href="/Resume.pdf" 
             download="Sahil_Mulla_Resume.pdf"
-            className="border border-stroke hover:border-accent px-8 py-3 rounded-full transition-colors"
+            className="border border-stroke hover:border-accent px-8 py-3 rounded-full transition-colors w-full sm:w-auto text-sm"
           >
             Download Resume
           </a>
@@ -117,9 +117,9 @@ export default function Hero() {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-6 md:bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
-        <span className="text-[10px] tracking-[0.3em] text-muted uppercase">Scroll</span>
-        <div className="w-[1px] h-12 bg-stroke relative overflow-hidden">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
+        <span className="text-[8px] tracking-[0.3em] text-muted uppercase">Scroll</span>
+        <div className="w-[1px] h-10 bg-stroke relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1/2 bg-accent animate-[scroll-down_2s_infinite]" />
         </div>
       </div>
