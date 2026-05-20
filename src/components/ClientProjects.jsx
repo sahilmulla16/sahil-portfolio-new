@@ -10,8 +10,25 @@ import deeliteImg from '../Pic/deelite_cover.png';
 import mysteryImg from '../Pic/mystery_cover.png';
 import prepmindImg from '../Pic/prepmind_cover.png';
 import sorinImg from '../Pic/sorin_cover.png';
+import iphoneImg from '../Pic/iphone_cover.png';
 
 const clientProjects = [
+  {
+    title: "iPhone 15 Pro Replica",
+    description: "A pixel-perfect 3D clone of the Apple iPhone 15 Pro website featuring interactive 3D models and smooth GSAP animations.",
+    longDescription: "An immersive 3D replica of Apple's iPhone 15 Pro launch page. This project integrates interactive 3D models with custom color selectors, detailed camera zoom animations, and complex GSAP scroll-triggered timelines to deliver a premium, high-performance user experience.",
+    category: "3D Interactive Web",
+    tech: ["React", "Three.js", "GSAP", "Tailwind CSS"],
+    themeColor: "#9CA3AF",
+    link: "https://iphone15pro-web.netlify.app/",
+    image: iphoneImg,
+    features: [
+      "Interactive 3D iPhone 15 Pro models with custom textures",
+      "GSAP ScrollTrigger for cinematic storytelling transitions",
+      "Dynamic color and model size selectors",
+      "Fully responsive layout optimized for all screen sizes"
+    ]
+  },
   {
     title: "Panache",
     description: "Luxury ethnic fashion and clothing website featuring modern product showcases and premium visual aesthetics.",
