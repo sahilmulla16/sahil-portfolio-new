@@ -125,7 +125,7 @@ export default function ClientProjects() {
             <motion.div
               key={index}
               onClick={() => setSelectedProject(project)}
-              className="glass-card rounded-[2rem] p-8 group cursor-pointer relative overflow-hidden border-stroke hover:border-accent/20 transition-all duration-500 w-[350px] md:w-[400px] shrink-0"
+              className="glass-card rounded-[2rem] p-6 group cursor-pointer relative overflow-hidden border-stroke hover:border-accent/20 transition-all duration-500 w-[350px] md:w-[400px] shrink-0 flex flex-col justify-between"
             >
               {/* Colored Glow Accent */}
               <div 
@@ -133,8 +133,9 @@ export default function ClientProjects() {
                 style={{ backgroundColor: project.themeColor }}
               />
 
-              <div className="relative z-10">
-                <div className="flex justify-between items-start mb-12">
+              <div className="relative z-10 flex flex-col h-full">
+                {/* Header Row */}
+                <div className="flex justify-between items-center mb-6">
                   <span 
                     className="text-[10px] uppercase tracking-[0.2em] px-3 py-1 rounded-full border border-stroke"
                     style={{ color: project.themeColor, borderColor: `${project.themeColor}33` }}
@@ -146,14 +147,26 @@ export default function ClientProjects() {
                   </div>
                 </div>
 
-                <h3 className="text-3xl font-display italic mb-4 group-hover:text-accent transition-colors">
+                {/* Cover Image Container */}
+                <div className="w-full h-[180px] rounded-2xl overflow-hidden mb-6 border border-stroke/50 relative">
+                  <img 
+                    src={project.image} 
+                    alt={project.title} 
+                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                </div>
+
+                {/* Title & Description */}
+                <h3 className="text-2xl font-display italic mb-3 group-hover:text-accent transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-sm text-muted leading-relaxed mb-8 line-clamp-3">
+                <p className="text-sm text-muted leading-relaxed mb-6 line-clamp-3 flex-grow">
                   {project.description}
                 </p>
 
-                <div className="flex flex-wrap gap-2 mt-auto">
+                {/* Tech Stack Footer */}
+                <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-stroke/30">
                   {project.tech.slice(0, 3).map((t, i) => (
                     <span key={i} className="text-[9px] uppercase tracking-widest text-muted/60">
                       {t} {i < project.tech.slice(0, 3).length - 1 ? "•" : ""}
