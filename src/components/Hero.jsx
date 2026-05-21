@@ -3,12 +3,12 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link as ScrollLink } from 'react-scroll';
-import PlexusBackground from './PlexusBackground';
 
 const roles = ["Freelancer", "Coder", "Developer", "AI & ML", "Researcher"];
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
+  const videoSrc = 'https://assets.mixkit.co/videos/preview/mixkit-connection-of-a-technological-network-34291-large.mp4';
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -20,12 +20,19 @@ export default function Hero() {
 
   return (
     <section id="home" className="relative h-screen w-full overflow-hidden flex items-center justify-center pt-20">
-      {/* Interactive Plexus Background */}
-      <PlexusBackground opacity={0.4} />
-      
-      {/* Cinematic Gradient Overlays */}
-      <div className="absolute inset-0 bg-black/40 pointer-events-none z-0" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg/50 to-bg pointer-events-none z-0" />
+      {/* Video Background */}
+      <div className="absolute inset-0 z-0">
+        <video 
+          src={videoSrc}
+          autoPlay 
+          muted 
+          loop 
+          playsInline
+          className="w-full h-full object-cover opacity-30"
+        />
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg/50 to-bg" />
+      </div>
 
       <div className="relative z-10 text-center px-6 max-w-4xl">
         <motion.div 

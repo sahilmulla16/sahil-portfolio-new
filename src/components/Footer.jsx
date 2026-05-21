@@ -1,16 +1,24 @@
 "use client";
 
 import React from 'react';
-import PlexusBackground from './PlexusBackground';
 
 export default function Footer() {
+  const videoSrc = 'https://assets.mixkit.co/videos/preview/mixkit-connection-of-a-technological-network-34291-large.mp4';
+
   return (
     <footer className="relative min-h-[80vh] md:min-h-screen flex flex-col justify-between overflow-hidden">
-      {/* Interactive Plexus Background */}
-      <PlexusBackground opacity={0.25} />
-      
-      {/* Cinematic Gradient Overlay */}
-      <div className="absolute inset-0 bg-black/75 pointer-events-none z-0" />
+      {/* Video Background */}
+      <div className="absolute inset-0 z-0">
+        <video 
+          src={videoSrc}
+          autoPlay 
+          muted 
+          loop 
+          playsInline
+          className="w-full h-full object-cover opacity-15"
+        />
+        <div className="absolute inset-0 bg-black/75" />
+      </div>
 
       {/* Marquee */}
       <div className="relative z-10 py-8 md:py-12 border-y border-stroke bg-bg/50 backdrop-blur-sm">
