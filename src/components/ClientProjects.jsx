@@ -79,18 +79,20 @@ const clientProjects = [
   },
   {
     title: "PrepMind AI",
-    description: "AI-powered educational platform focused on smart learning and intelligent study workflows.",
-    longDescription: "PrepMind AI is an educational technology solution that integrates AI APIs to personalize the learning experience. It features intelligent study workflows and a productivity-focused interface designed to help students maximize their learning efficiency.",
-    category: "AI Education Platform",
+    description: "AI-powered career intelligence platform designed to analyze real-time hiring trends, interview patterns, and recruitment insights.",
+    longDescription: "PrepMind AI is an AI-powered career intelligence platform designed to help users stay ahead in the job market by analyzing real-time hiring trends, interview patterns, and company-specific recruitment insights. The platform intelligently matches users with relevant job opportunities based on their resume and generates structured job tracking reports for streamlined applications.",
+    category: "AI Career Intelligence",
     tech: ["React", "AI APIs", "Tailwind CSS", "Firebase"],
     themeColor: "#22D3EE",
     link: "https://prepmind-ai-six.vercel.app/",
     image: prepmindImg,
     features: [
-      "AI-driven study plan generation",
-      "Real-time intelligent feedback systems",
-      "Clean, productivity-enhancing UI",
-      "Firebase backend integration for data persistence"
+      "AI-powered analysis of current hiring patterns and recruitment trends for specific companies",
+      "Fetches company-specific interview patterns and previous recruitment question trends (PYQS insights)",
+      "Smart Job Hunter system that recommends relevant job opportunities based on resume analysis",
+      "Generates structured Excel-sheet style job tracking dashboards with application links, roles, and company details",
+      "Productivity-focused modern UI with intelligent workflows for efficient job discovery and preparation",
+      "Firebase integration for scalable data persistence and user workflow management"
     ]
   },
   {
