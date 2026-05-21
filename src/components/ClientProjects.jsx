@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import ProjectModal from './ProjectModal';
 
@@ -113,12 +113,45 @@ const clientProjects = [
   }
 ];
 
-// Duplicate projects for seamless loop
-const duplicatedProjects = [...clientProjects, ...clientProjects];
-
 export default function ClientProjects() {
   const [selectedProject, setSelectedProject] = useState(null);
-  const [isPaused, setIsPaused] = useState(false);
+  const containerRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragged, setDragged] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setDragged(false);
+    setStartX(e.pageX - containerRef.current.offsetLeft);
+    setScrollLeft(containerRef.current.scrollLeft);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - containerRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5; // Scroll speed multiplier
+    if (Math.abs(x - startX) > 5) {
+      setDragged(true);
+    }
+    containerRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleCardClick = (project) => {
+    if (!dragged) {
+      setSelectedProject(project);
+    }
+  };
 
   return (
     <section id="client-work" className="py-24 bg-bg/50 overflow-hidden">
@@ -127,75 +160,71 @@ export default function ClientProjects() {
         <p className="text-muted">Delivering bespoke digital solutions and high-performance experiences for global brands.</p>
       </div>
 
-      {/* Sliding Container */}
+      {/* Draggable Sliding Container */}
       <div 
-        className="relative flex overflow-hidden"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
+        ref={containerRef}
+        onMouseDown={handleMouseDown}
+        onMouseLeave={handleMouseLeave}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
+        className={`flex gap-6 px-6 overflow-x-auto scrollbar-hide select-none cursor-grab active:cursor-grabbing scroll-smooth`}
+        style={{ WebkitOverflowScrolling: 'touch' }}
       >
-        <div
-          className="flex gap-6 px-6 marquee-content"
-          style={{ 
-            animationPlayState: isPaused ? 'paused' : 'running',
-            width: 'max-content'
-          }}
-        >
-          {duplicatedProjects.map((project, index) => (
-            <motion.div
-              key={index}
-              onClick={() => setSelectedProject(project)}
-              className="glass-card rounded-[2rem] p-6 group cursor-pointer relative overflow-hidden border-stroke hover:border-accent/20 transition-all duration-500 w-[350px] md:w-[400px] shrink-0 flex flex-col justify-between"
-            >
-              {/* Colored Glow Accent */}
-              <div 
-                className="absolute -top-24 -right-24 w-48 h-48 rounded-full blur-[80px] opacity-0 group-hover:opacity-20 transition-opacity duration-700"
-                style={{ backgroundColor: project.themeColor }}
-              />
+        {clientProjects.map((project, index) => (
+          <motion.div
+            key={index}
+            onClick={() => handleCardClick(project)}
+            className="glass-card rounded-[2rem] p-6 group relative overflow-hidden border-stroke hover:border-accent/20 transition-all duration-500 w-[320px] md:w-[400px] shrink-0 flex flex-col justify-between pointer-events-auto"
+          >
+            {/* Colored Glow Accent */}
+            <div 
+              className="absolute -top-24 -right-24 w-48 h-48 rounded-full blur-[80px] opacity-0 group-hover:opacity-20 transition-opacity duration-700"
+              style={{ backgroundColor: project.themeColor }}
+            />
 
-              <div className="relative z-10 flex flex-col h-full">
-                {/* Header Row */}
-                <div className="flex justify-between items-center mb-6">
-                  <span 
-                    className="text-[10px] uppercase tracking-[0.2em] px-3 py-1 rounded-full border border-stroke"
-                    style={{ color: project.themeColor, borderColor: `${project.themeColor}33` }}
-                  >
-                    {project.category}
-                  </span>
-                  <div className="w-8 h-8 rounded-full border border-stroke flex items-center justify-center group-hover:border-accent transition-colors">
-                    <span className="text-sm">↗</span>
-                  </div>
-                </div>
-
-                {/* Cover Image Container */}
-                <div className="w-full h-[180px] rounded-2xl overflow-hidden mb-6 border border-stroke/50 relative">
-                  <img 
-                    src={project.image} 
-                    alt={project.title} 
-                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                </div>
-
-                {/* Title & Description */}
-                <h3 className="text-2xl font-display italic mb-3 group-hover:text-accent transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-sm text-muted leading-relaxed mb-6 line-clamp-3 flex-grow">
-                  {project.description}
-                </p>
-
-                {/* Tech Stack Footer */}
-                <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-stroke/30">
-                  {project.tech.slice(0, 3).map((t, i) => (
-                    <span key={i} className="text-[9px] uppercase tracking-widest text-muted/60">
-                      {t} {i < project.tech.slice(0, 3).length - 1 ? "•" : ""}
-                    </span>
-                  ))}
+            <div className="relative z-10 flex flex-col h-full">
+              {/* Header Row */}
+              <div className="flex justify-between items-center mb-6">
+                <span 
+                  className="text-[10px] uppercase tracking-[0.2em] px-3 py-1 rounded-full border border-stroke"
+                  style={{ color: project.themeColor, borderColor: `${project.themeColor}33` }}
+                >
+                  {project.category}
+                </span>
+                <div className="w-8 h-8 rounded-full border border-stroke flex items-center justify-center group-hover:border-accent transition-colors">
+                  <span className="text-sm">↗</span>
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </div>
+
+              {/* Cover Image Container */}
+              <div className="w-full h-[180px] rounded-2xl overflow-hidden mb-6 border border-stroke/50 relative">
+                <img 
+                  src={project.image} 
+                  alt={project.title} 
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out pointer-events-none"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+
+              {/* Title & Description */}
+              <h3 className="text-2xl font-display italic mb-3 group-hover:text-accent transition-colors">
+                {project.title}
+              </h3>
+              <p className="text-sm text-muted leading-relaxed mb-6 line-clamp-3 flex-grow">
+                {project.description}
+              </p>
+
+              {/* Tech Stack Footer */}
+              <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-stroke/30">
+                {project.tech.slice(0, 3).map((t, i) => (
+                  <span key={i} className="text-[9px] uppercase tracking-widest text-muted/60">
+                    {t} {i < project.tech.slice(0, 3).length - 1 ? "•" : ""}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        ))}
       </div>
 
       <ProjectModal 
@@ -203,16 +232,6 @@ export default function ClientProjects() {
         isOpen={!!selectedProject}
         onClose={() => setSelectedProject(null)}
       />
-
-      <style>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .marquee-content {
-          animation: marquee 40s linear infinite;
-        }
-      `}</style>
     </section>
   );
 }
