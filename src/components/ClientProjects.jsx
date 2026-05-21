@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ProjectModal from './ProjectModal';
 
@@ -113,13 +113,41 @@ const clientProjects = [
   }
 ];
 
+// Duplicate projects to create a seamless infinite loop
+const duplicatedProjects = [...clientProjects, ...clientProjects];
+
 export default function ClientProjects() {
   const [selectedProject, setSelectedProject] = useState(null);
   const containerRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const [dragged, setDragged] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+
+  // Smooth Auto-Scroll Loop
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    let animationFrameId;
+
+    const scroll = () => {
+      if (!isDragging && !isHovered) {
+        container.scrollLeft += 0.8; // Speed of auto-scroll
+
+        // Reset to start when reaching the midpoint for seamless infinite loop
+        const maxScroll = container.scrollWidth / 2;
+        if (container.scrollLeft >= maxScroll) {
+          container.scrollLeft = 0;
+        }
+      }
+      animationFrameId = requestAnimationFrame(scroll);
+    };
+
+    animationFrameId = requestAnimationFrame(scroll);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [isDragging, isHovered]);
 
   const handleMouseDown = (e) => {
     setIsDragging(true);
@@ -130,6 +158,7 @@ export default function ClientProjects() {
 
   const handleMouseLeave = () => {
     setIsDragging(false);
+    setIsHovered(false);
   };
 
   const handleMouseUp = () => {
@@ -160,17 +189,18 @@ export default function ClientProjects() {
         <p className="text-muted">Delivering bespoke digital solutions and high-performance experiences for global brands.</p>
       </div>
 
-      {/* Draggable Sliding Container */}
+      {/* Draggable & Auto-Scrolling Container */}
       <div 
         ref={containerRef}
         onMouseDown={handleMouseDown}
         onMouseLeave={handleMouseLeave}
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
-        className={`flex gap-6 px-6 overflow-x-auto scrollbar-hide select-none cursor-grab active:cursor-grabbing scroll-smooth`}
+        onMouseEnter={() => setIsHovered(true)}
+        className="flex gap-6 px-6 overflow-x-auto scrollbar-hide select-none cursor-grab active:cursor-grabbing"
         style={{ WebkitOverflowScrolling: 'touch' }}
       >
-        {clientProjects.map((project, index) => (
+        {duplicatedProjects.map((project, index) => (
           <motion.div
             key={index}
             onClick={() => handleCardClick(project)}
