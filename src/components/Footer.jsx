@@ -1,37 +1,23 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
-import Hls from 'hls.js';
+import React from 'react';
 
 export default function Footer() {
-  const videoRef = useRef(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    const videoSrc = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
-
-    if (Hls.isSupported()) {
-      const hls = new Hls();
-      hls.loadSource(videoSrc);
-      hls.attachMedia(video);
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = videoSrc;
-    }
-  }, []);
+  const videoSrc = 'https://assets.mixkit.co/videos/preview/mixkit-connection-of-a-technological-network-34291-large.mp4';
 
   return (
     <footer className="relative min-h-[80vh] md:min-h-screen flex flex-col justify-between overflow-hidden">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <video 
-          ref={videoRef}
+          src={videoSrc}
           autoPlay 
           muted 
           loop 
           playsInline
-          className="w-full h-full object-cover opacity-20"
+          className="w-full h-full object-cover opacity-15"
         />
-        <div className="absolute inset-0 bg-black/70" />
+        <div className="absolute inset-0 bg-black/75" />
       </div>
 
       {/* Marquee */}
