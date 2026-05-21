@@ -19,6 +19,12 @@ export default function Footer() {
     }
   }, []);
 
+  const links = [
+    { name: "GitHub", url: "https://github.com/sahilmulla16", external: true },
+    { name: "LinkedIn", url: "https://www.linkedin.com/in/sahil-mulla-625364263/", external: true },
+    { name: "Email", url: "mailto:sahilmulla9152@gmail.com", external: false }
+  ];
+
   return (
     <footer className="relative min-h-[80vh] md:min-h-screen flex flex-col justify-between overflow-hidden">
       {/* Video Background */}
@@ -65,9 +71,15 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-wrap justify-center gap-6 md:gap-8">
-          {["GitHub", "LinkedIn", "Email"].map(link => (
-            <a key={link} href="#" className="text-[9px] uppercase tracking-widest text-muted hover:text-text-primary transition-colors">
-              {link}
+          {links.map(link => (
+            <a 
+              key={link.name} 
+              href={link.url} 
+              target={link.external ? "_blank" : undefined}
+              rel={link.external ? "noreferrer" : undefined}
+              className="text-[9px] uppercase tracking-widest text-muted hover:text-text-primary transition-colors"
+            >
+              {link.name}
             </a>
           ))}
         </div>
