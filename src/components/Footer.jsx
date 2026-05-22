@@ -1,24 +1,8 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
-import Hls from 'hls.js';
+import React from 'react';
 
 export default function Footer() {
-  const videoRef = useRef(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    const videoSrc = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
-
-    if (Hls.isSupported()) {
-      const hls = new Hls();
-      hls.loadSource(videoSrc);
-      hls.attachMedia(video);
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = videoSrc;
-    }
-  }, []);
-
   const links = [
     { name: "GitHub", url: "https://github.com/sahilmulla16", external: true },
     { name: "LinkedIn", url: "https://www.linkedin.com/in/sahil-mulla-625364263/", external: true },
@@ -30,12 +14,12 @@ export default function Footer() {
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <video 
-          ref={videoRef}
           autoPlay 
           muted 
           loop 
           playsInline
-          className="w-full h-full object-cover opacity-20"
+          className="w-full h-full object-cover opacity-15"
+          src="https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c05d003d47e30613300c59204d660f57&profile_id=139&oauth2_token_id=57447761"
         />
         <div className="absolute inset-0 bg-black/70" />
       </div>

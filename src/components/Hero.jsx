@@ -1,28 +1,15 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
-import Hls from 'hls.js';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link as ScrollLink } from 'react-scroll';
 
 const roles = ["Freelancer", "Coder", "Developer", "AI & ML", "Researcher"];
 
 export default function Hero() {
-  const videoRef = useRef(null);
   const [roleIndex, setRoleIndex] = useState(0);
 
   useEffect(() => {
-    const video = videoRef.current;
-    const videoSrc = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
-
-    if (Hls.isSupported()) {
-      const hls = new Hls();
-      hls.loadSource(videoSrc);
-      hls.attachMedia(video);
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = videoSrc;
-    }
-
     const interval = setInterval(() => {
       setRoleIndex(prev => (prev + 1) % roles.length);
     }, 2000);
@@ -35,12 +22,12 @@ export default function Hero() {
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <video 
-          ref={videoRef}
           autoPlay 
           muted 
           loop 
           playsInline
-          className="w-full h-full object-cover opacity-40"
+          className="w-full h-full object-cover opacity-30"
+          src="https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c05d003d47e30613300c59204d660f57&profile_id=139&oauth2_token_id=57447761"
         />
         <div className="absolute inset-0 bg-black/40" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg/50 to-bg" />
