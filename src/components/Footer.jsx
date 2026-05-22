@@ -19,7 +19,7 @@ export default function Footer() {
           loop 
           playsInline
           className="w-full h-full object-cover opacity-15"
-          src="https://assets.mixkit.co/videos/preview/mixkit-abstract-digital-connection-wave-background-41555-large.mp4"
+          src="https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c05d003d47e30613300c59204d660f57&profile_id=139&oauth2_token_id=57447761"
         />
         <div className="absolute inset-0 bg-black/70" />
       </div>
