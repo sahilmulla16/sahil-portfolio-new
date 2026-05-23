@@ -10,22 +10,13 @@ gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
 const experiences = [
   {
-    date: "SEP 2025 – FEB 2026",
-    role: "Full Stack Developer Intern",
-    company: "Toujours Pret Management Consultancy Pvt. Ltd.",
-    description: "Contributed to the development of modern full-stack digital solutions with a focus on responsive UI engineering, scalable workflows, and performance optimization. Collaborated on real-world production systems while enhancing frontend experiences and development efficiency.",
-    skills: ["Full Stack", "UI Engineering", "Workflows", "Performance"],
-    side: "right",
-    top: "100px"
-  },
-  {
     date: "NOV 2024 – DEC 2024",
     role: "Freelance Developer",
     company: "Apexxport Pvt. Ltd.",
     description: "Received a Letter of Recommendation for outstanding contributions in front-end development, React, and UI/UX optimization. Improved responsiveness, usability, and overall user experience across modern web interfaces.",
     skills: ["React", "UI/UX", "SEO", "Frontend"],
     side: "left",
-    top: "450px"
+    top: "120px"
   },
   {
     date: "JUL 2022 – AUG 2022",
@@ -34,7 +25,7 @@ const experiences = [
     description: "Worked on real-time web development projects using HTML, CSS, and JavaScript. Built responsive interfaces and improved user engagement through optimized UI implementation and debugging workflows.",
     skills: ["JavaScript", "Responsive Design", "Debugging", "Web Development"],
     side: "right",
-    top: "800px"
+    top: "450px"
   }
 ];
 
@@ -86,7 +77,7 @@ export default function ProfessionalExperience() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="experience" className="relative min-h-[1400px] bg-bg py-24 md:py-32 overflow-hidden">
+    <section ref={sectionRef} id="experience" className="relative min-h-[1100px] bg-bg py-24 md:py-32 overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-4 md:px-10">
         <div className="text-center mb-16 md:mb-24">
           <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-text-primary mb-4">Professional Experience</h2>
@@ -95,13 +86,13 @@ export default function ProfessionalExperience() {
           </p>
         </div>
 
-        <div className="relative max-w-[800px] h-[1100px] mx-auto">
+        <div className="relative max-w-[800px] h-[800px] mx-auto">
           {/* SVG Curved Path */}
-          <svg className="absolute left-1/2 -translate-x-1/2 top-0 h-full w-[600px] z-10 pointer-events-none" viewBox="0 0 600 1100" preserveAspectRatio="none">
+          <svg className="absolute left-1/2 -translate-x-1/2 top-0 h-full w-[600px] z-10 pointer-events-none" viewBox="0 0 600 800" preserveAspectRatio="none">
             <path
               ref={pathRef}
               id="timelinePath"
-              d="M300,0 Q150,183 300,366 Q450,550 300,733 Q150,916 300,1100"
+              d="M300,0 Q150,133 300,266 Q450,400 300,533 Q150,666 300,800"
               fill="none"
               stroke="currentColor"
               strokeWidth="3"
@@ -139,7 +130,7 @@ export default function ProfessionalExperience() {
                 key={index}
                 initial={{ opacity: 0, y: 50, scale: 0.9 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 1, ease: "power3.out" }}
                 className={`absolute w-full md:w-[420px] p-6 md:p-8 rounded-[28px] glass-card group transition-all duration-500 hover:-translate-y-1 hover:border-accent/30 z-10
                   ${exp.side === 'left' ? 'md:right-[58%] text-right' : 'md:left-[58%] text-left'}
