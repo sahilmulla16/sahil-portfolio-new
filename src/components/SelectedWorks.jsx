@@ -147,9 +147,6 @@ export default function SelectedWorks() {
             <h2 className="text-4xl md:text-5xl font-display italic mb-4">Featured projects</h2>
             <p className="text-muted">A selection of AI systems, automation workflows, and full-stack applications I've developed.</p>
           </div>
-          <button className="text-xs uppercase tracking-widest border-b border-stroke pb-1 hover:border-accent transition-colors">
-            View All Projects
-          </button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {projects.map((project, index) => (
