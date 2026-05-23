@@ -1,28 +1,16 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
-import Hls from 'hls.js';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link as ScrollLink } from 'react-scroll';
+import HeroBackground from './HeroBackground';
 
 const roles = ["Freelancer", "Coder", "Developer", "AI & ML", "Researcher"];
 
 export default function Hero() {
-  const videoRef = useRef(null);
   const [roleIndex, setRoleIndex] = useState(0);
 
   useEffect(() => {
-    const video = videoRef.current;
-    const videoSrc = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
-
-    if (Hls.isSupported()) {
-      const hls = new Hls();
-      hls.loadSource(videoSrc);
-      hls.attachMedia(video);
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = videoSrc;
-    }
-
     const interval = setInterval(() => {
       setRoleIndex(prev => (prev + 1) % roles.length);
     }, 2000);
@@ -32,19 +20,13 @@ export default function Hero() {
 
   return (
     <section id="home" className="relative h-screen w-full overflow-hidden flex items-center justify-center pt-20">
-      {/* Video Background */}
-      <div className="absolute inset-0 z-0">
-        <video 
-          ref={videoRef}
-          autoPlay 
-          muted 
-          loop 
-          playsInline
-          className="w-full h-full object-cover opacity-40"
-        />
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg/50 to-bg" />
-      </div>
+      {/* Interactive Neural Network Background */}
+      <HeroBackground />
+
+      {/* Ambient Gradients for Depth */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg/40 to-bg pointer-events-none z-0" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-accent/5 blur-[120px] pointer-events-none z-0" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-purple-500/5 blur-[120px] pointer-events-none z-0" />
 
       <div className="relative z-10 text-center px-6 max-w-4xl">
         <motion.div 
