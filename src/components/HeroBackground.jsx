@@ -11,103 +11,42 @@ export default function HeroBackground() {
 
     const ctx = canvas.getContext('2d');
     let animationFrameId;
-    let particles = [];
+    let nodes = [];
+    let packets = [];
     let width = canvas.width = window.innerWidth;
     let height = canvas.height = window.innerHeight;
 
     const isMobile = () => window.innerWidth < 768;
 
     // Configuration
-    const particleCount = isMobile() ? 80 : 220;
-    const mouse = { x: null, y: null, rx: 0, ry: 0, radius: 150 };
-    let time = 0;
-
-    class Particle {
-      constructor() {
-        this.reset();
-        // Randomize initial positions fully across screen
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-      }
-
-      reset() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.size = Math.random() * 1.5 + 0.5;
-        this.speed = Math.random() * 0.8 + 0.4;
-        this.angle = Math.random() * Math.PI * 2;
-        this.spin = Math.random() * 0.02 - 0.01;
-        // Aesthetic tech colors (blues, purples, cyans)
-        const colors = [
-          'rgba(137, 170, 204, 0.6)', // Accent blue
-          'rgba(147, 197, 253, 0.4)', // Light blue
-          'rgba(168, 85, 247, 0.4)',  // Purple
-          'rgba(34, 211, 238, 0.4)'   // Cyan
-        ];
-        this.color = colors[Math.floor(Math.random() * colors.length)];
-        this.alpha = Math.random() * 0.5 + 0.3;
-      }
-
-      update() {
-        // Flow field math using sine/cosine waves over space and time
-        const flowAngle = Math.sin(this.x * 0.005 + time) * Math.cos(this.y * 0.005 + time) * Math.PI * 2;
-        
-        // Blend natural flow with particle's own angle
-        this.angle += this.spin;
-        const vx = Math.cos(flowAngle) * this.speed * 0.7 + Math.cos(this.angle) * this.speed * 0.3;
-        const vy = Math.sin(flowAngle) * this.speed * 0.7 + Math.sin(this.angle) * this.speed * 0.3;
-
-        this.x += vx;
-        this.y += vy;
-
-        // Mouse interaction: Swirling gravity vortex
-        if (mouse.x !== null && mouse.y !== null) {
-          const dx = mouse.rx - this.x;
-          const dy = mouse.ry - this.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < mouse.radius) {
-            const force = (mouse.radius - dist) / mouse.radius;
-            // Pull towards mouse
-            this.x += (dx / dist) * force * 1.5;
-            this.y += (dy / dist) * force * 1.5;
-            
-            // Add a swirling orbital force
-            this.x += (-dy / dist) * force * 2;
-            this.y += (dx / dist) * force * 2;
-          }
-        }
-
-        // Reset if out of bounds
-        if (this.x < -20 || this.x > width + 20 || this.y < -20 || this.y > height + 20) {
-          this.reset();
-          if (Math.random() > 0.5) {
-            this.x = Math.random() > 0.5 ? -10 : width + 10;
-          } else {
-            this.y = Math.random() > 0.5 ? -10 : height + 10;
-          }
-        }
-      }
-
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-      }
-    }
-
-    const initParticles = () => {
-      particles = [];
-      for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
+    const maxNodes = isMobile() ? 30 : 75;
+    const connectionDist = isMobile() ? 90 : 140;
+    const mouse = { x: null, y: null, rx: 0, ry: 0, radius: 180 };
+    
+    // Initialize nodes
+    const initNodes = () => {
+      nodes = [];
+      packets = [];
+      for (let i = 0; i < maxNodes; i++) {
+        nodes.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          baseX: Math.random() * width,
+          baseY: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          radius: Math.random() * 2 + 1,
+          pulse: Math.random() * Math.PI * 2,
+          pulseSpeed: 0.01 + Math.random() * 0.02,
+          color: Math.random() > 0.8 ? 'rgba(147, 197, 253, 0.8)' : 'rgba(137, 170, 204, 0.5)'
+        });
       }
     };
 
     const resize = () => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
-      initParticles();
+      initNodes();
     };
 
     // Mouse & Touch Handlers
@@ -133,52 +72,162 @@ export default function HeroBackground() {
       mouse.y = null;
     };
 
-    // Click shockwave interaction
+    // Click to spawn interactive burst of nodes
     const handleClick = (e) => {
       const clickX = e.clientX || (e.touches && e.touches[0].clientX);
       const clickY = e.clientY || (e.touches && e.touches[0].clientY);
       if (!clickX || !clickY) return;
 
-      particles.forEach(p => {
-        const dx = p.x - clickX;
-        const dy = p.y - clickY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 250) {
-          const force = (250 - dist) / 250;
-          p.x += (dx / dist) * force * 50;
-          p.y += (dy / dist) * force * 50;
-        }
-      });
+      const burstCount = isMobile() ? 4 : 8;
+      for (let i = 0; i < burstCount; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 2 + 1;
+        nodes.push({
+          x: clickX,
+          y: clickY,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          radius: Math.random() * 3 + 1.5,
+          pulse: Math.random() * Math.PI * 2,
+          pulseSpeed: 0.05,
+          color: 'rgba(168, 85, 247, 0.9)', // Purple burst
+          temporary: true,
+          life: 1.0 // Fade out life
+        });
+      }
+
+      // Remove excess nodes to keep performance stable
+      if (nodes.length > maxNodes + 20) {
+        nodes.splice(0, nodes.length - (maxNodes + 20));
+      }
+    };
+
+    // Spawn random data packets along connections
+    const maybeSpawnPacket = (nodeA, nodeB, dist) => {
+      if (packets.length < 15 && Math.random() < 0.002) {
+        packets.push({
+          x: nodeA.x,
+          y: nodeA.y,
+          from: nodeA,
+          to: nodeB,
+          progress: 0,
+          speed: (0.01 + Math.random() * 0.015) * (100 / dist)
+        });
+      }
     };
 
     const draw = () => {
-      // Create a beautiful trailing effect by drawing a semi-transparent background
-      ctx.fillStyle = 'rgba(10, 10, 10, 0.08)';
-      ctx.fillRect(0, 0, width, height);
+      ctx.clearRect(0, 0, width, height);
 
-      time += 0.002;
-
-      // Smoothly lerp mouse coordinates
+      // Smoothly lerp mouse coordinates for parallax/attraction
       if (mouse.x !== null && mouse.y !== null) {
         mouse.rx += (mouse.x - mouse.rx) * 0.08;
         mouse.ry += (mouse.y - mouse.ry) * 0.08;
       }
 
-      // Update and draw particles
-      particles.forEach(p => {
-        p.update();
-        p.draw();
+      // Update and draw nodes
+      nodes.forEach((node, i) => {
+        // Move nodes
+        node.x += node.vx;
+        node.y += node.vy;
+        node.pulse += node.pulseSpeed;
+
+        // Handle temporary burst nodes
+        if (node.temporary) {
+          node.life -= 0.01;
+          if (node.life <= 0) {
+            nodes.splice(i, 1);
+            return;
+          }
+        }
+
+        // Boundary collision
+        if (node.x < 0 || node.x > width) node.vx *= -1;
+        if (node.y < 0 || node.y > height) node.vy *= -1;
+
+        // Mouse attraction & Parallax
+        if (mouse.x !== null && mouse.y !== null) {
+          const dx = mouse.rx - node.x;
+          const dy = mouse.ry - node.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < mouse.radius) {
+            const force = (mouse.radius - dist) / mouse.radius;
+            node.x += (dx / dist) * force * 0.8;
+            node.y += (dy / dist) * force * 0.8;
+          }
+        }
+
+        // Draw connections
+        for (let j = i + 1; j < nodes.length; j++) {
+          const other = nodes[j];
+          const dx = node.x - other.x;
+          const dy = node.y - other.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < connectionDist) {
+            const alpha = (1 - dist / connectionDist) * 0.18;
+            ctx.beginPath();
+            ctx.strokeStyle = node.temporary || other.temporary 
+              ? `rgba(168, 85, 247, ${alpha * 1.5})` 
+              : `rgba(137, 170, 204, ${alpha})`;
+            ctx.lineWidth = node.temporary || other.temporary ? 1.2 : 0.7;
+            ctx.moveTo(node.x, node.y);
+            ctx.lineTo(other.x, other.y);
+            ctx.stroke();
+
+            // Attempt to spawn a data packet along this connection
+            maybeSpawnPacket(node, other, dist);
+          }
+        }
+
+        // Draw node
+        const currentRadius = node.radius + Math.sin(node.pulse) * 0.6;
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, currentRadius, 0, Math.PI * 2);
+        ctx.fillStyle = node.temporary 
+          ? `rgba(168, 85, 247, ${node.life})` 
+          : node.color;
+        ctx.fill();
+
+        // Subtle outer glow ring for key nodes
+        if (i % 7 === 0 && !node.temporary) {
+          ctx.beginPath();
+          ctx.arc(node.x, node.y, currentRadius * 2.5, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(137, 170, 204, ${0.05 + Math.sin(node.pulse) * 0.03})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
       });
 
-      // Draw subtle interactive glow under the cursor
-      if (mouse.x !== null && mouse.y !== null) {
-        const gradient = ctx.createRadialGradient(mouse.rx, mouse.ry, 0, mouse.rx, mouse.ry, mouse.radius);
-        gradient.addColorStop(0, 'rgba(137, 170, 204, 0.04)');
-        gradient.addColorStop(1, 'rgba(137, 170, 204, 0)');
+      // Update and draw data packets
+      packets.forEach((packet, index) => {
+        packet.progress += packet.speed;
+        if (packet.progress >= 1) {
+          packets.splice(index, 1);
+          return;
+        }
+
+        // Calculate current position along the line
+        const currX = packet.from.x + (packet.to.x - packet.from.x) * packet.progress;
+        const currY = packet.from.y + (packet.to.y - packet.from.y) * packet.progress;
+
+        // Draw glowing packet
         ctx.beginPath();
-        ctx.arc(mouse.rx, mouse.ry, mouse.radius, 0, Math.PI * 2);
-        ctx.fillStyle = gradient;
+        ctx.arc(currX, currY, 2, 0, Math.PI * 2);
+        ctx.fillStyle = '#93c5fd';
+        ctx.shadowColor = '#60a5fa';
+        ctx.shadowBlur = 6;
         ctx.fill();
+        ctx.shadowBlur = 0; // Reset shadow blur for performance
+      });
+
+      // Draw interactive mouse halo
+      if (mouse.x !== null && mouse.y !== null) {
+        ctx.beginPath();
+        ctx.arc(mouse.rx, mouse.ry, 40, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(137, 170, 204, 0.08)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
       }
 
       animationFrameId = requestAnimationFrame(draw);
@@ -208,7 +257,7 @@ export default function HeroBackground() {
   return (
     <canvas 
       ref={canvasRef} 
-      className="absolute inset-0 w-full h-full pointer-events-none z-0"
+      className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-80"
     />
   );
 }
