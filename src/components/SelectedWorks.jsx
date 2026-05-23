@@ -2,10 +2,24 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import Hls from 'hls.js';
 import ProjectModal from './ProjectModal';
 
 const ProjectVideo = ({ src, isHovered }) => {
   const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !src) return;
+
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(src);
+      hls.attachMedia(video);
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = src;
+    }
+  }, [src]);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -25,7 +39,6 @@ const ProjectVideo = ({ src, isHovered }) => {
       loop 
       playsInline 
       className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-40 transition-opacity duration-700" 
-      src={src}
     />
   );
 };
@@ -43,7 +56,7 @@ const projects = [
     ],
     tech: ["Python", "React", "LangGraph", "ChromaDB"],
     size: "md:col-span-2 md:row-span-2",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-abstract-digital-connection-lines-background-32585-large.mp4",
+    video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
     image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1600",
     link: "https://github.com/sahilmulla16/DEV-Hackathon.git",
     paper: "https://docs.google.com/document/d/12NF2QdIQ8arRhDX1HMTNnRjr4H0TDo0U/edit?usp=sharing"
@@ -60,7 +73,7 @@ const projects = [
     ],
     tech: ["Python", "Machine Learning"],
     size: "md:col-span-1 md:row-span-1",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-abstract-digital-connection-lines-background-32585-large.mp4",
+    video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
     image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1600",
     link: "https://drive.google.com/file/d/1_a1ZZ1SedLEIguJCsoHzwGvtF3OHOcGA/view?usp=sharing"
   },
@@ -76,7 +89,7 @@ const projects = [
     ],
     tech: ["Python", "JavaScript", "Bootstrap"],
     size: "md:col-span-1 md:row-span-1",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-abstract-digital-connection-lines-background-32585-large.mp4",
+    video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
     image: "https://images.unsplash.com/photo-1589254065878-42c9da997008?auto=format&fit=crop&q=80&w=1600",
     link: "https://github.com/sahilmulla16/Jarvis"
   }

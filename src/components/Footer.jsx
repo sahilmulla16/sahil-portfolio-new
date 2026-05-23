@@ -1,9 +1,23 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import Hls from 'hls.js';
 
 export default function Footer() {
-  const videoUrl = "https://assets.mixkit.co/videos/preview/mixkit-abstract-digital-connection-lines-background-32585-large.mp4";
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    const videoSrc = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
+
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(videoSrc);
+      hls.attachMedia(video);
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = videoSrc;
+    }
+  }, []);
 
   const links = [
     { name: "GitHub", url: "https://github.com/sahilmulla16", external: true },
@@ -16,12 +30,12 @@ export default function Footer() {
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <video 
+          ref={videoRef}
           autoPlay 
           muted 
           loop 
           playsInline
           className="w-full h-full object-cover opacity-20"
-          src={videoUrl}
         />
         <div className="absolute inset-0 bg-black/70" />
       </div>
