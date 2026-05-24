@@ -29,10 +29,14 @@ export default function Navbar() {
         <ScrollLink 
           to="home" 
           smooth={true} 
-          className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-stroke flex items-center justify-center cursor-pointer relative group shrink-0"
+          className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-stroke flex items-center justify-center cursor-pointer relative group shrink-0 overflow-hidden p-1"
         >
-          <div className="absolute inset-0 rounded-full accent-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <span className="font-display italic text-xs md:text-sm relative z-10">SM</span>
+          <div className="absolute inset-0 rounded-full accent-gradient opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
+          <img 
+            src="/favicon.png" 
+            alt="Sahil Mulla Logo" 
+            className="w-full h-full object-contain relative z-10 rounded-full"
+          />
         </ScrollLink>
 
         {/* Desktop Links */}
