@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Link as ScrollLink } from 'react-scroll';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import logoImg from '../Pic/logo.png';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,10 +30,13 @@ export default function Navbar() {
         <ScrollLink 
           to="home" 
           smooth={true} 
-          className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-stroke flex items-center justify-center cursor-pointer relative group shrink-0"
+          className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-stroke flex items-center justify-center cursor-pointer relative group shrink-0 overflow-hidden bg-white"
         >
-          <div className="absolute inset-0 rounded-full accent-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <span className="font-display italic text-xs md:text-sm relative z-10">SM</span>
+          <img 
+            src={logoImg} 
+            alt="SM Logo" 
+            className="w-full h-full object-contain p-1.5 transition-transform duration-300 group-hover:scale-110"
+          />
         </ScrollLink>
 
         {/* Desktop Links */}
