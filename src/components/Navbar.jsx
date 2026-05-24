@@ -29,14 +29,10 @@ export default function Navbar() {
         <ScrollLink 
           to="home" 
           smooth={true} 
-          className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-stroke flex items-center justify-center cursor-pointer relative group shrink-0 overflow-hidden"
+          className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-stroke flex items-center justify-center cursor-pointer relative group shrink-0"
         >
           <div className="absolute inset-0 rounded-full accent-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <img 
-            src="/favicon.png" 
-            alt="SM Logo" 
-            className="w-full h-full object-cover rounded-full relative z-10"
-          />
+          <span className="font-display italic text-xs md:text-sm relative z-10">SM</span>
         </ScrollLink>
 
         {/* Desktop Links */}
