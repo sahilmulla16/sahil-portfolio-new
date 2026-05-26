@@ -89,11 +89,12 @@ export default function Hero() {
             View Projects
           </ScrollLink>
           <a 
-            href="/Resume.pdf" 
-            download="Sahil_Mulla_Resume.pdf"
+            href="https://drive.google.com/file/d/1TO5skB1o1LylMdJ4sWJQ1g5jvwfN0AJh/view?usp=sharing" 
+            target="_blank"
+            rel="noreferrer"
             className="border border-stroke hover:border-accent px-8 py-3 rounded-full transition-colors w-full sm:w-auto text-sm"
           >
-            Download Resume
+            View Resume
           </a>
         </motion.div>
       </div>
