@@ -12,11 +12,16 @@ const ProjectVideo = ({ src, isHovered }) => {
     const video = videoRef.current;
     if (!video || !src) return;
 
-    if (Hls.isSupported()) {
-      const hls = new Hls();
-      hls.loadSource(src);
-      hls.attachMedia(video);
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    // Support both HLS (.m3u8) and standard video files (.mp4, etc)
+    if (src.includes('.m3u8')) {
+      if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(src);
+        hls.attachMedia(video);
+      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = src;
+      }
+    } else {
       video.src = src;
     }
   }, [src]);
@@ -56,7 +61,7 @@ const projects = [
     ],
     tech: ["Python", "React", "LangGraph", "ChromaDB"],
     size: "md:col-span-2 md:row-span-2",
-    video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+    video: "/videos/rag-agent.mp4",
     image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1600",
     link: "https://github.com/sahilmulla16/DEV-Hackathon.git",
     paper: "https://docs.google.com/document/d/12NF2QdIQ8arRhDX1HMTNnRjr4H0TDo0U/edit?usp=sharing"
@@ -73,7 +78,7 @@ const projects = [
     ],
     tech: ["Python", "Machine Learning"],
     size: "md:col-span-1 md:row-span-1",
-    video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+    video: "https://drive.google.com/file/d/1_a1ZZ1SedLEIguJCsoHzwGvtF3OHOcGA/view?usp=sharing",
     image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1600",
     link: "https://drive.google.com/file/d/1_a1ZZ1SedLEIguJCsoHzwGvtF3OHOcGA/view?usp=sharing"
   },
