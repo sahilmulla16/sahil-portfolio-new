@@ -1,56 +1,8 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import Hls from 'hls.js';
 import ProjectModal from './ProjectModal';
-
-// Import local video
-import slaVideo from '../Pic/SLA_mockup.mp4';
-
-const ProjectVideo = ({ src, isHovered }) => {
-  const videoRef = useRef(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video || !src) return;
-
-    // Check if it's an HLS stream or a standard video file
-    if (src.includes('.m3u8')) {
-      if (Hls.isSupported()) {
-        const hls = new Hls();
-        hls.loadSource(src);
-        hls.attachMedia(video);
-      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = src;
-      }
-    } else {
-      // Standard video file (like .mp4)
-      video.src = src;
-    }
-  }, [src]);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      if (isHovered) {
-        videoRef.current.play().catch(() => {});
-      } else {
-        videoRef.current.pause();
-        videoRef.current.currentTime = 0;
-      }
-    }
-  }, [isHovered]);
-
-  return (
-    <video 
-      ref={videoRef} 
-      muted 
-      loop 
-      playsInline 
-      className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-40 transition-opacity duration-700" 
-    />
-  );
-};
 
 const projects = [
   {
@@ -65,7 +17,6 @@ const projects = [
     ],
     tech: ["Python", "React", "LangGraph", "ChromaDB"],
     size: "md:col-span-2 md:row-span-2",
-    video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
     image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1600",
     link: "https://github.com/sahilmulla16/DEV-Hackathon.git",
     paper: "https://docs.google.com/document/d/12NF2QdIQ8arRhDX1HMTNnRjr4H0TDo0U/edit?usp=sharing"
@@ -82,7 +33,6 @@ const projects = [
     ],
     tech: ["Python", "Machine Learning"],
     size: "md:col-span-1 md:row-span-1",
-    video: slaVideo,
     image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1600",
     link: "https://drive.google.com/file/d/1_a1ZZ1SedLEIguJCsoHzwGvtF3OHOcGA/view?usp=sharing"
   },
@@ -98,30 +48,34 @@ const projects = [
     ],
     tech: ["Python", "JavaScript", "Bootstrap"],
     size: "md:col-span-1 md:row-span-1",
-    video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
     image: "https://images.unsplash.com/photo-1589254065878-42c9da997008?auto=format&fit=crop&q=80&w=1600",
     link: "https://github.com/sahilmulla16/Jarvis"
   }
 ];
 
 const ProjectCard = ({ project, onClick }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
   return (
     <motion.div 
-      onMouseEnter={() => setIsHovered(true)} 
-      onMouseLeave={() => setIsHovered(false)} 
       onClick={() => onClick(project)} 
-      whileHover={{ scale: 0.98 }} 
+      whileHover={{ scale: 0.985 }} 
       className={`glass-card rounded-3xl p-8 flex flex-col justify-between group relative overflow-hidden cursor-pointer ${project.size}`} 
     >
-      {/* Video Background */}
-      <ProjectVideo src={project.video} isHovered={isHovered} />
+      {/* Background Image with Desaturation */}
+      <div className="absolute inset-0 z-0">
+        <img 
+          src={project.image} 
+          alt={project.title} 
+          className="w-full h-full object-cover opacity-10 grayscale group-hover:grayscale-0 group-hover:opacity-20 transition-all duration-700" 
+        />
+      </div>
+
+      {/* Premium Monochrome Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10" />
       
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 accent-gradient opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none" />
-      
-      <div className="relative z-10">
+      {/* Interactive Border Glow */}
+      <div className="absolute inset-0 border border-white/0 group-hover:border-white/10 rounded-3xl transition-colors duration-500 z-10 pointer-events-none" />
+
+      <div className="relative z-20">
         <div className="flex flex-wrap gap-2 mb-6">
           {project.tech.map(t => (
             <span key={t} className="text-[10px] uppercase tracking-widest text-muted border border-stroke px-2 py-1 rounded-full bg-bg/50 backdrop-blur-sm">
@@ -129,15 +83,15 @@ const ProjectCard = ({ project, onClick }) => {
             </span>
           ))}
         </div>
-        <h3 className="text-2xl md:text-3xl font-display italic mb-4">{project.title}</h3>
-        <p className="text-sm text-muted leading-relaxed">{project.description}</p>
+        <h3 className="text-2xl md:text-3xl font-display italic mb-4 group-hover:text-white transition-colors">{project.title}</h3>
+        <p className="text-sm text-muted leading-relaxed group-hover:text-muted/80 transition-colors">{project.description}</p>
       </div>
       
-      <div className="mt-12 flex justify-between items-center relative z-10">
-        <div className="w-10 h-10 rounded-full border border-stroke flex items-center justify-center group-hover:border-accent transition-colors bg-bg/50 backdrop-blur-sm">
-          <span className="text-lg">↗</span>
+      <div className="mt-12 flex justify-between items-center relative z-20">
+        <div className="w-10 h-10 rounded-full border border-stroke flex items-center justify-center group-hover:border-white/40 transition-colors bg-bg/50 backdrop-blur-sm">
+          <span className="text-lg group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">↗</span>
         </div>
-        <span className="text-[10px] uppercase tracking-widest text-muted opacity-0 group-hover:opacity-100 transition-opacity">
+        <span className="text-[10px] uppercase tracking-widest text-muted opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-x-2 group-hover:translate-x-0">
           Explore Project
         </span>
       </div>
