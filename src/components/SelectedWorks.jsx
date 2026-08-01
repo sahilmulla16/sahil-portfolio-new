@@ -5,6 +5,9 @@ import { motion } from 'framer-motion';
 import Hls from 'hls.js';
 import ProjectModal from './ProjectModal';
 
+// Import local video
+import slaVideo from '../Pic/SLA_mockup.mp4';
+
 const ProjectVideo = ({ src, isHovered }) => {
   const videoRef = useRef(null);
 
@@ -12,11 +15,17 @@ const ProjectVideo = ({ src, isHovered }) => {
     const video = videoRef.current;
     if (!video || !src) return;
 
-    if (Hls.isSupported()) {
-      const hls = new Hls();
-      hls.loadSource(src);
-      hls.attachMedia(video);
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    // Check if it's an HLS stream or a standard video file
+    if (src.includes('.m3u8')) {
+      if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(src);
+        hls.attachMedia(video);
+      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = src;
+      }
+    } else {
+      // Standard video file (like .mp4)
       video.src = src;
     }
   }, [src]);
@@ -73,7 +82,7 @@ const projects = [
     ],
     tech: ["Python", "Machine Learning"],
     size: "md:col-span-1 md:row-span-1",
-    video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+    video: slaVideo,
     image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1600",
     link: "https://drive.google.com/file/d/1_a1ZZ1SedLEIguJCsoHzwGvtF3OHOcGA/view?usp=sharing"
   },
