@@ -38,7 +38,7 @@ const ProjectVideo = ({ src, isHovered }) => {
       muted 
       loop 
       playsInline 
-      className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-60 transition-opacity duration-700 grayscale hover:grayscale-0" 
+      className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-40 transition-opacity duration-700" 
     />
   );
 };
@@ -56,7 +56,7 @@ const projects = [
     ],
     tech: ["Python", "React", "LangGraph", "ChromaDB"],
     size: "md:col-span-2 md:row-span-2",
-    video: "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8",
+    video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
     image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1600",
     link: "https://github.com/sahilmulla16/DEV-Hackathon.git",
     paper: "https://docs.google.com/document/d/12NF2QdIQ8arRhDX1HMTNnRjr4H0TDo0U/edit?usp=sharing"
@@ -73,7 +73,7 @@ const projects = [
     ],
     tech: ["Python", "Machine Learning"],
     size: "md:col-span-1 md:row-span-1",
-    video: "https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/m3u8s/11331.m3u8",
+    video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
     image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1600",
     link: "https://drive.google.com/file/d/1_a1ZZ1SedLEIguJCsoHzwGvtF3OHOcGA/view?usp=sharing"
   },
@@ -89,7 +89,7 @@ const projects = [
     ],
     tech: ["Python", "JavaScript", "Bootstrap"],
     size: "md:col-span-1 md:row-span-1",
-    video: "https://playertest.longtailvideo.com/adaptive/oceans/oceans.m3u8",
+    video: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
     image: "https://images.unsplash.com/photo-1589254065878-42c9da997008?auto=format&fit=crop&q=80&w=1600",
     link: "https://github.com/sahilmulla16/Jarvis"
   }
@@ -109,9 +109,6 @@ const ProjectCard = ({ project, onClick }) => {
       {/* Video Background */}
       <ProjectVideo src={project.video} isHovered={isHovered} />
       
-      {/* Dark Overlay for Video Visibility */}
-      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-      
       {/* Gradient Overlay */}
       <div className="absolute inset-0 accent-gradient opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none" />
       
@@ -123,8 +120,8 @@ const ProjectCard = ({ project, onClick }) => {
             </span>
           ))}
         </div>
-        <h3 className="text-2xl md:text-3xl font-display italic mb-4 group-hover:text-white transition-colors">{project.title}</h3>
-        <p className="text-sm text-muted leading-relaxed group-hover:text-white/80 transition-colors">{project.description}</p>
+        <h3 className="text-2xl md:text-3xl font-display italic mb-4">{project.title}</h3>
+        <p className="text-sm text-muted leading-relaxed">{project.description}</p>
       </div>
       
       <div className="mt-12 flex justify-between items-center relative z-10">
